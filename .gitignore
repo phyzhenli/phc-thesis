@@ -1,0 +1,14 @@
+*.aux
+main.bbl
+main.blg
+main.fdb_latexmk
+main.fls
+main.lof
+main.log
+main.lot
+main.out
+main.pdf
+main.synctex.gz
+main.thm
+main.toc
+main.xdv
