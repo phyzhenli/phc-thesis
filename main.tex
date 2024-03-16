@@ -30,6 +30,7 @@
 %   5. 不需要的注释可以尽情删除
 %*********************************************************************
 
+
 \documentclass[type=doctor]{fduthesis}
 % 模板选项：
 %   type = doctor|master|bachelor  论文类型，默认为本科论文
@@ -249,6 +250,7 @@
 \usepackage{multirow}
 \usepackage{lscape}
 \usepackage{hvfloat}
+\usepackage{pdfpages}
 % add by zli
 
 % 需要的命令可以自行定义
@@ -257,12 +259,23 @@
 \newcommand{\ii}{\symrm{i}}
 
 % add by zli
-% \newcommand*{\PubBlind}{}
+% \newcommand*{\Blind}{}
+\ifdefined\Blind
+  \fdusetup{ style = {auto-make-cover = false} }
+\fi
 \allowdisplaybreaks[4]
 % end by zli
 
 \begin{document}
+
+
+
 % add by zli
+\ifdefined\Blind
+  \begin{titlepage}
+    \includepdf{盲审论文封面_李震.pdf}
+  \end{titlepage}
+\fi
 \begin{sloppypar}
 % end by zli
 
@@ -327,10 +340,18 @@
 % 打印参考文献列表
 \printbibliography
 
+\ifdefined\Blind
+\else
 \include{thanks.tex}
+\fi
+
 \include{pubs.tex}
 
 % add by zli
 \end{sloppypar}
 % end by zli
+
+
+
+
 \end{document}
