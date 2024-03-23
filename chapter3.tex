@@ -3,7 +3,7 @@
 
 \section{研究背景}
 
-近年来，随着物联网设备（Internet of Things，IoT）的快速发展及其严格的资源限制，在IoT中部署如图像处理（Image processing）、数据挖掘（Data mining）、多媒体技术（Multimedia technology）、深度学习等计算密集型应用成为了一个严峻的挑战\cite{AC:AM:survey_zhuocheng}。幸运地是，这类应用往往具有容错性，利用近似乘法器对被频繁调用的乘法操作在硬件上进行优化，一方面能够提高处理速度、减少资源消耗，另一方面又不会带来明显的输出质量下降。
+近年来，随着物联网设备（Internet of Things, IoT）的快速发展及其严格的资源限制，在IoT中部署如图像处理（Image processing）、数据挖掘（Data mining）、多媒体技术（Multimedia technology）、深度学习等计算密集型应用成为了一个严峻的挑战\cite{AC:AM:survey_zhuocheng}。幸运地是，这类应用往往具有容错性，利用近似乘法器对被频繁调用的乘法操作在硬件上进行优化，一方面能够提高处理速度、减少资源消耗，另一方面又不会带来明显的输出质量下降。
 
 \section{国内外研究现状}
 
@@ -134,10 +134,10 @@ $n$是子区域的个数，因此可以通过不断划分面积相等的子区�
 
 \subsection{自动化方法}
 
-将设计近似乘法器的问题建模成搜索问题，能够利用计算机在短时间内生成大量具有不同精度和不同性能的近似乘法器。在自动化方法中，由捷克布尔诺理工大学（Brno University of Technology）可进化硬件（Evolvable HardWare，EHW）研究小组开发的、基于笛卡尔遗传规划（Cartesian Genetic Programming，CGP）\cite{CGP_2008,CGP_2011}的遗传算法（Genetic algorithm）取得了相当出色的效果。2016年，EHW的研究人员利用CGP设计了面向人工神经网络的近似乘法器\cite{AC:AM:CGP_2016}，以精度下降小于2.80\%的代价节省了91\%的功耗。
+将设计近似乘法器的问题建模成搜索问题，能够利用计算机在短时间内生成大量具有不同精度和不同性能的近似乘法器。在自动化方法中，由捷克布尔诺理工大学（Brno University of Technology）可进化硬件（Evolvable HardWare, EHW）研究小组开发的、基于笛卡尔遗传规划（Cartesian Genetic Programming, CGP）\cite{CGP_2008,CGP_2011}的遗传算法（Genetic algorithm）取得了相当出色的效果。2016年，EHW的研究人员利用CGP设计了面向人工神经网络的近似乘法器\cite{AC:AM:CGP_2016}，以精度下降小于2.80\%的代价节省了91\%的功耗。
 
 CGP起源于Miller等人于1997年开发的一种进化数字电路的表示方法\cite{CGP_1997}，在1999年第一次出现\cite{CGP_1999}，其通用形式于2000年被正式提出\cite{CGP_2000}。
-在CGP中，一个电路由一张有向无环图（Directed Acyclic Graph，DAG）进行表示，每个节点由一串整数组成，分别代表该节点从哪个节点获得数据以及节点对数据执行什么操作，输出没有被使用的节点可以被忽略。将所有的整数按照顺序排列，并在最后加上表示电路输出的节点编号便是电路对应的CGP形式。
+在CGP中，一个电路由一张有向无环图（Directed Acyclic Graph, DAG）进行表示，每个节点由一串整数组成，分别代表该节点从哪个节点获得数据以及节点对数据执行什么操作，输出没有被使用的节点可以被忽略。将所有的整数按照顺序排列，并在最后加上表示电路输出的节点编号便是电路对应的CGP形式。
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/AC-AM-CGP.png}
@@ -217,9 +217,9 @@ Mrazek等人首先把8比特精确乘法器的不同电路实现结构转换成�
 \label{DNN:LeNet_MNIST:Fig:FC1_distribution}
 \end{figure}
 
-许多近似乘法器在设计时都有一个隐含的假设，即乘数和被乘数都是均匀分布的，然而很多应用并不满足该假设。例如，文献\cite{DNN:WeightAnalysis2}发现深度神经网络（Deep Neural Network，DNN）中权重的分布并不是均匀的，而是集中在某个值附近。为了证明不同数据分布对近似乘法器精度的影响，将文献\cite{AC:AM:OU}提出的面向浮点数乘法器的设计方法拓展到定点数领域，针对均匀分布和从DNN应用中提取的真实分布分别生成了8比特无符号整数近似乘法器$f^{(1)}$和$f^{(2)}$并进行误差比较，过程如下：
+许多近似乘法器在设计时都有一个隐含的假设，即乘数和被乘数都是均匀分布的，然而很多应用并不满足该假设。例如，文献\cite{DNN:WeightAnalysis2}发现深度神经网络（Deep Neural Network, DNN）中权重的分布并不是均匀的，而是集中在某个值附近。为了证明不同数据分布对近似乘法器精度的影响，将文献\cite{AC:AM:OU}提出的面向浮点数乘法器的设计方法拓展到定点数领域，针对均匀分布和从DNN应用中提取的真实分布分别生成了8比特无符号整数近似乘法器$f^{(1)}$和$f^{(2)}$并进行误差比较，过程如下：
 
-对于均匀分布，易得$f^{(1)} = -16384 + 128 x + 128 y$，是一个对称的乘法器。对于DNN应用，为了获得操作数的概率分布，对采用8比特位宽无符号整数量化（Quantization）的LeNet网络在MNIST数据集上进行训练\cite{DNN:LeNet_MNIST}，统计第一个全连接（First Fully-Connected，FC1）层的特征输入和权重的数据分布，如图\ref{DNN:LeNet_MNIST:Fig:FC1_distribution}所示，可以看到输入值很多是0而权重值集中在128附近。
+对于均匀分布，易得$f^{(1)} = -16384 + 128 x + 128 y$，是一个对称的乘法器。对于DNN应用，为了获得操作数的概率分布，对采用8比特位宽无符号整数量化（Quantization）的LeNet网络在MNIST数据集上进行训练\cite{DNN:LeNet_MNIST}，统计第一个全连接（First Fully-Connected, FC1）层的特征输入和权重的数据分布，如图\ref{DNN:LeNet_MNIST:Fig:FC1_distribution}所示，可以看到输入值很多是0而权重值集中在128附近。
 将输入和权重分别用半高斯和高斯分布进行拟合，利用文献\cite{AC:AM:OU}的方法，可以得到$f^{(2)} = -1549 + 129 x + 12 y$。注意$f^{(2)}$是非对称的，$x$是特征输入，$y$是权重。
 
 \begin{figure}[!htb]
@@ -275,8 +275,8 @@ Mrazek等人首先把8比特精确乘法器的不同电路实现结构转换成�
 本文提出了一种新的自动化近似乘法器生成方法，受文献\cite{AC:AM:SDLC}的启发，该方法通过逻辑操作和移位操作在部分积生成后、累加前对部分积进行了一次压缩，降低部分积阵列的规模，减轻后续的累加压力。同时，与文献\cite{AC:AM:SDLC}只采用或操作不同，本文提出的方法同时利用与、或、异或和移位操作对部分积进行压缩，降低乘法器的误差。最后，该方法将设计近似乘法器的问题建模成数学问题，利用计算机自动寻找在给定输入分布下的最优压缩操作，同时考虑输入极性，主要创新点如下：
 \begin{itemize}
     \item 为了方便测试不同近似乘法器在不同规模神经网络上的性能，本文提出并开源了一个基于8比特无符号数量化的DNN推断（Inference）精度评估工具，该工具将一个近似乘法器表示为一个查找表并对网络中的精确乘法进行替换，支持LeNet\cite{DNN:LeNet_MNIST}、AlexNet\cite{DNN:AlexNet}、VGG16\cite{DNN:VGG16}三个不同规模的神经网络和MNIST\cite{DNN:LeNet_MNIST}、CIFAR-10\cite{DNN:CIFAR-10}两个数据集。
-    \item 提出的设计方法可以生成任意分布下的无符号乘法器，针对8比特位宽的三个不同规模的神经网络的实验结果表明，与国际前沿工作相比，生成的近似乘法器在几乎没有精度损失的情况下，功耗延迟面积积（Product of Power，Delay，and Area，缩写作PDA）提升了26.4\%。同时，针对大规模神经网络设计的近似乘法器在面对小规模神经网络时表现出了一定的可迁移性。
-    \item 利用改进的Baugh-Wooley算法\cite{EM:baugh-wooley,EM:baugh-wooley_modified_PP_reorga,EM:baugh-wooley_diff}（见\ref{改进的Baugh-Wooley算法}），方法能够生成补码有符号乘法器，基于16比特位宽的有限冲击响应（Finite Impulse Response，FIR）滤波器的实验结果表明，与国际前沿工作相比，生成的近似乘法器在几乎没有任何精度损失的情况下，PDA优化了27.1\%。
+    \item 提出的设计方法可以生成任意分布下的无符号乘法器，针对8比特位宽的三个不同规模的神经网络的实验结果表明，与国际前沿工作相比，生成的近似乘法器在几乎没有精度损失的情况下，功耗延迟面积积（Product of Power, Delay, and Area，缩写作PDA）提升了26.4\%。同时，针对大规模神经网络设计的近似乘法器在面对小规模神经网络时表现出了一定的可迁移性。
+    \item 利用改进的Baugh-Wooley算法\cite{EM:baugh-wooley,EM:baugh-wooley_modified_PP_reorga,EM:baugh-wooley_diff}（见\ref{改进的Baugh-Wooley算法}），方法能够生成补码有符号乘法器，基于16比特位宽的有限冲击响应（Finite Impulse Response, FIR）滤波器的实验结果表明，与国际前沿工作相比，生成的近似乘法器在几乎没有任何精度损失的情况下，PDA优化了27.1\%。
 \end{itemize}
 
 \section{研究方法}
@@ -431,7 +431,7 @@ Mrazek等人首先把8比特精确乘法器的不同电路实现结构转换成�
       % \mathop{min}\limits_{}\boldsymbol{\theta}}\ [ \ E_d(X_d, Y_d, \boldsymbol{\theta}) + Cont(\boldsymbol{\theta}) \ ]
 \end{equation}
 即为最终的优化目标，式中$p(x^{\prime}_i, y^{\prime}_j)$代表乘法器的极性，由式\eqref{AC:AM:Adapt:Eq:pxy}给出。可采用混合整数遗传算法（Mixed
-Integer Genetic Algorithm，MIGA）通过MATLAB或Python对式\eqref{AC:AM:Adapt:Eq:Obj}进行求解。
+Integer Genetic Algorithm, MIGA）通过MATLAB或Python对式\eqref{AC:AM:Adapt:Eq:Obj}进行求解。
 
 \subsection{求解过程}
 
@@ -562,7 +562,7 @@ $l$与$\lambda$的取值和近似乘法器的精度高度相关，原因如下�
 \label{DNN:ApproxFlow:Eq:fake_quantize}
 \end{align}
 其中$r$表示要量化的实数，$\lfloor \ \rceil$表示四舍五入到最接近的整数。在8比特伪量化中，$n=2^8=256$，$a=min(r)$，$b=max(r)$。
-对于批归一化（Batch Normalization，BN）的DNN，在伪量化过程开始时将每个BN层与其前一层合并，可在保持高精度的同时简化量化后的计算。合并操作可以通过以下等式来描述：
+对于批归一化（Batch Normalization, BN）的DNN，在伪量化过程开始时将每个BN层与其前一层合并，可在保持高精度的同时简化量化后的计算。合并操作可以通过以下等式来描述：
 \begin{equation}
     \label{DNN:ApproxFlow:Eq:BN}
     \begin{aligned}
@@ -622,7 +622,7 @@ $l$与$\lambda$的取值和近似乘法器的精度高度相关，原因如下�
 
 从DNN中提取乘法器的输入分布，并在某个特定的$R$下按照如前所述的方法生成近似乘法器，之后与已有的近似乘法器一起在考虑极性的情况下利用提出的DNN推断精度评估工具对近似后的神经网络进行精度评估，并利用DC进行综合以比较硬件性能。DNN中乘法器的两个操作数分别是特征输入（Feature input）和权重（Weight），两者的概率分布通常不同，因此按照本文提出的方法对DNN生成近似乘法器时需考虑极性，设XFYW代表$P=0$的乘法器（$x$是特征输入、$y$是权重），XWYF代表$P=1$的乘法器（$x$是权重、$y$是特征输入）。
 
-为了对不同乘法器的质量进行统一比较，引入功耗、延迟、面积、相对精度损失4个指标的乘积（Product of relative accuracy loss and PDA，APDA）来衡量不同乘法器在某个DNN应用中的好坏，相对精度损失定义为：
+为了对不同乘法器的质量进行统一比较，引入功耗、延迟、面积、相对精度损失4个指标的乘积（Product of relative accuracy loss and PDA, APDA）来衡量不同乘法器在某个DNN应用中的好坏，相对精度损失定义为：
 \begin{equation}
      \text{ceil}_\% ( A_{exact} ) - A_{mul}
 \label{AC:AM:Adapt:LeNet:Eq:accuracy_loss}
@@ -902,7 +902,7 @@ DRUM(7)的功耗和延迟都略高于DesignW，这是因为需要检查的比特
     \caption{一个自适应FIR滤波器的结构图}
     \label{AC:AM:Adapt:FIR:Fig:structure}
 \end{figure}
-一个基本的自适应FIR滤波器的结构图如图\ref{AC:AM:Adapt:FIR:Fig:structure}所示，其中$n$代表迭代次数，$\boldsymbol{x}(n)$是输入向量，$\boldsymbol{w}(n)$是权重向量，由最小均方（Least Mean Squares，LMS）算法通过负反馈回路进行调整，$y(n)$是输出信号，$d(n)$是参考信号，$e(n)$是误差。
+一个基本的自适应FIR滤波器的结构图如图\ref{AC:AM:Adapt:FIR:Fig:structure}所示，其中$n$代表迭代次数，$\boldsymbol{x}(n)$是输入向量，$\boldsymbol{w}(n)$是权重向量，由最小均方（Least Mean Squares, LMS）算法通过负反馈回路进行调整，$y(n)$是输出信号，$d(n)$是参考信号，$e(n)$是误差。
 在$M$阶FIR滤波器中，假设第$n$次迭代时$\boldsymbol{w}(n) = [w_0(n), w_1(n), \cdots , w_{M-1}(n)]$，$\boldsymbol{x}(n) = [x(n), x(n-1), \cdots , x(n-M+1)]^\mathrm{T}$，输出信号$y(n)$由下式计算：
 \begin{equation}
     \label{AC:AM:Adapt:FIR:Eq:yn}
@@ -939,7 +939,7 @@ DRUM(7)的功耗和延迟都略高于DesignW，这是因为需要检查的比特
 \end{figure}
 
 首先在精确乘法下运行滤波器并得到对应的权重数据，结果如图\ref{AC:AM:Adapt:FIR:Fig:weight_distribution}所示，可以看到分布是不均匀的。
-假设$R=0.2$，由式\ref{AC:AM:Adapt:Eq:l_approx}得$l=6$，根据算法\ref{AC:AM:Adapt:Alg:lambda}得$P=0$和$P=1$下的$\lambda$下均为5000，基于式\eqref{AC:AM:Adapt:Eq:Obj}生成近似乘法器并进行峰值信噪比（Peak Signal-to-Noise Ratio，PSNR）的评估。
+假设$R=0.2$，由式\ref{AC:AM:Adapt:Eq:l_approx}得$l=6$，根据算法\ref{AC:AM:Adapt:Alg:lambda}得$P=0$和$P=1$下的$\lambda$下均为5000，基于式\eqref{AC:AM:Adapt:Eq:Obj}生成近似乘法器并进行峰值信噪比（Peak Signal-to-Noise Ratio, PSNR）的评估。
 
 \begin{figure}[!ht]
     \centering
@@ -951,7 +951,7 @@ DRUM(7)的功耗和延迟都略高于DesignW，这是因为需要检查的比特
 图\ref{AC:AM:Adapt:FIR:Fig:PSNR_PDA}展示了不同乘法器基于1GHz时钟频率约束的PDA和PSNR对比散点图，其中DesignW代表DC通过DesignWare库\cite{IP:DesignWare}自动构建的16比特精确乘法器，XSYW和XWYS分别代表基于$P=0$（$x$是信号输入，$y$是权重）和$P=1$（$x$是权重，$y$是信号输入）生成的乘法器。
 可以看到按照本文方法生成的近似乘法器在几乎没有PSNR损失的情况下提供了更好的PDA值，与DesignW和EvoLite中的mul16s\_GAT乘法器相比，5个生成的乘法器$\emph{`A'}$、$\emph{`B'}$、$\emph{`C'}$、$\emph{`D'}$、$\emph{`E'}$的PDA平均分别提升了41.0\%和27.1\%。
 
-为了对不同乘法器的质量进行统一地比较，引入PDA和相对峰值信噪比损失的乘积（Product of PDA and relative PSNR loss，LPDA）来表征乘法器的好坏，相对PSNR损失被定义为：
+为了对不同乘法器的质量进行统一地比较，引入PDA和相对峰值信噪比损失的乘积（Product of PDA and relative PSNR loss, LPDA）来表征乘法器的好坏，相对PSNR损失被定义为：
 \begin{equation}
     \lceil P_{exact} \rceil - P_{mul}
 \label{AC:AM:Adapt:FIR:Eq:R_PSNR_Loss}
