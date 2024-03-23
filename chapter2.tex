@@ -422,7 +422,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 
 不论是阵列累加还是CSA累加本质上都是通过排列全加器实现的，全加器也可以安排为树形，这样既能减少累加电路所需的全加器的数量，还能降低关键路径延迟。树形加法器的实现可以看作是并行的进位保留加法器，累加效率更高。常见的树形加法器包括华莱士树\cite{EM:Wallace}和达达树\cite{EM:Dadda}。
 
-（1）华莱士树
+（1）华莱士树 \label{华莱士树}
 
 华莱士树（Wallace tree）加法器\cite{EM:Wallace}是由澳大利亚计算机科学家克里斯·华莱士（Christopher Stewart Wallace）于1964年设计的，被广泛用于乘法器中部分积的高效快速累加。其基本步骤如下：（a）假设所有部分积都是同时生成的，第一步是将部分积每3个分为一组（不足3个保持），并将每组部分积的个数通过全加器和半加器压缩为2个；（b）重复对部分积进行分组并压缩，直到只剩下两个部分积；（c）相加最后两个部分积得到最终结果。
 \begin{figure}[!htb]
@@ -437,11 +437,11 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 （2）达达树
 
 达达树（Dadda tree）加法器是由计算机科学家Luigi Dadda于1965年发明的一种树形加法结构\cite{EM:Dadda}，与华莱士树方法类似，达达树也是采用全加器和半加器对部分积进行压缩，直到只剩下两个部分积。区别在于，Luigi Dadda对华莱士树进行了重构，在树的级数（深度）不变的情况下使用了数量更少的全加器和半加器，节省了硬件资源，但缺点是最后两个部分积的位宽可能会稍大。具体步骤如下
-% \ifdefined\Blind
-% ：
-% \else
+\ifdefined\Blind
+：
+\else
 \footnote{https://en.wikipedia.org/wiki/Dadda\_multiplier}：
-% \fi
+\fi
 \begin{itemize}
     \item 部分积的累加过程由一个正整数序列$d_j$来控制：$d_1=2$，$d_{j+1}=\lfloor 1.5 \rfloor d_j$，$\lfloor \ \rfloor$表示向下取整；
     \item 初始的$j$应尽可能大并满足$d_j < n$，$n$是乘数的位宽（部分积阵列的高度）；
@@ -503,7 +503,12 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 \label{EM:Fig:CSKA_4bit}
 \end{figure}
 
-但是，与RCA相比，CSKA并没有明显的性能改进（如图\ref{EM:Fig:CSKA_4bit}中的关键路径$\tau_{\text{crit}}$同样需要经过4个全加器）。因此，当位宽较大时，采用分块CSKA（Block CSKA）的办法才能取得较为显著的速度增益。若一个$n$比特的分块CSKA有$m$块CSKA，每块CSKA的位宽均为$\dfrac{n}{m}$，则该分块CSKA被称为固定大小分块CSKA\footnote{https://en.wikipedia.org/wiki/Carry-skip\_adder}。
+但是，与RCA相比，CSKA并没有明显的性能改进（如图\ref{EM:Fig:CSKA_4bit}中的关键路径$\tau_{\text{crit}}$同样需要经过4个全加器）。因此，当位宽较大时，采用分块CSKA（Block CSKA）的办法才能取得较为显著的速度增益。若一个$n$比特的分块CSKA有$m$块CSKA，每块CSKA的位宽均为$\dfrac{n}{m}$，则该分块CSKA被称为固定大小分块CSKA%
+\ifdefined\Blind
+。
+\else
+\footnote{https://en.wikipedia.org/wiki/Carry-skip\_adder}。
+\fi
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{figs/EM-CSKA_16Bit.pdf}
@@ -537,7 +542,13 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 \end{figure}
 
 图\ref{EM:Fig:CSEA_linear}展示了一个16比特线性CSEA的结构示意图，该加法器由一个4比特RCA和三个4比特CSEA组成，其关键路径包括初始的4比特RCA和后续三个MUX，可通过以下过程理解：当初始的RCA计算完成时，后面所有的小CSEA中的RCA均计算完成，只需等待真正的进位输入信号进行选择即可。
-通常来讲，对于一个$n$比特线性CSEA，每个小CSEA的位宽取$\lfloor \sqrt n \rfloor$性能最好\footnote{https://en.wikipedia.org/wiki/Carry-select\_adder}，这里$\lfloor \ \rfloor$代表向下取整。
+通常来讲，对于一个$n$比特线性CSEA，每个小CSEA的位宽取$\lfloor \sqrt n \rfloor$性能最好
+\ifdefined\Blind
+，
+\else
+\footnote{https://en.wikipedia.org/wiki/Carry-select\_adder}，
+\fi
+这里$\lfloor \ \rfloor$代表向下取整。
 
 （2）平方根进位选择加法器
 
