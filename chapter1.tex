@@ -78,18 +78,18 @@
 \footnote{https://irds.ieee.org/editions/2022}：
 \fi
 
-（1）More Moore
+（1）More Moore\cite{more_moore}
 
-“More Moore”即“深度摩尔”，其基本思路是延续摩尔定律的发展，在兼顾性能和功耗的同时，继续缩小晶体管的尺寸\cite{more_moore}。随着FinFET的漏电越发严重，对沟道拥有更强控制能力的全环栅晶体管（Gate All Around FET, GAAFET）将成为未来的主流\cite{GAA}。
+“More Moore”即“深度摩尔”，其基本思路是延续摩尔定律的发展，在兼顾性能和功耗的同时，继续缩小晶体管的尺寸。随着FinFET的漏电越发严重，对沟道拥有更强控制能力的全环栅晶体管（Gate All Around FET, GAAFET）将成为未来的主流\cite{GAA}。
 
-（2）More than Moore
+（2）More than Moore\cite{more_than_moore}
 
-“More than Moore”即“超越摩尔”，侧重于功能的多样化，由应用需求驱动，通过先进封装技术实现异质集成系统\cite{more_than_moore}。与不断优化晶体管的“More Moore”路线不同，“More than Moore”从需求端出发，以系统应用为起点，尝试在提高芯片集成度和能效的同时降低芯片制造的成本。在SoC中，除了逻辑（Logic）和存储（Dynamic Random Access Memory, DRAM）部分以外，模拟（Analog）、射频（Radio Frequency, RF）等模块往往并不能随着工艺的迭代获得显著地性能改善，甚至可能会变差。因此，数字（Digital）部分可由先进工艺实现，而其余部分可选择更合适的工艺进行流片，最后不同模块通过先进封装技术组合在一起，模块间通过高速接口进行通讯，实现整体的能效提升。
+“More than Moore”即“超越摩尔”，侧重于功能的多样化，由应用需求驱动，通过先进封装技术实现异质集成系统。与不断优化晶体管的“More Moore”路线不同，“More than Moore”从需求端出发，以系统应用为起点，尝试在提高芯片集成度和能效的同时降低芯片制造的成本。在SoC中，除了逻辑（Logic）和存储（Dynamic Random Access Memory, DRAM）部分以外，模拟（Analog）、射频（Radio Frequency, RF）等模块往往并不能随着工艺的迭代获得显著地性能改善，甚至可能会变差。因此，数字（Digital）部分可由先进工艺实现，而其余部分可选择更合适的工艺进行流片，最后不同模块通过先进封装技术组合在一起，模块间通过高速接口进行通讯，实现整体的能效提升。
 
 
-（3）Beyond Complementary Metal Oxide Semiconductor（CMOS）
+（3）Beyond Complementary Metal Oxide Semiconductor（CMOS）\cite{beyond_cmos}
 
-前面两种路线仍然是基于硅基集成电路进行拓展，“Beyond CMOS”是指利用CMOS之外的新器件、新材料来制造晶体管，提高芯片的能效\cite{beyond_cmos}。与CMOS相比，这类新器件往往具有更高的密度、更强的性能、更低的功耗，但可能还无法大规模制造或制造成本不能接受。目前，该方向是学术界和工业界研究的热点之一，各种新型方案百花齐放，比如低功耗的隧穿场效应晶体管（Tunneling FET, TFET）\cite{TFET}、与CMOS工艺兼容的单电子晶体管（Single Electron Transistor, SET）\cite{SET}、具有高迁移率的石墨烯晶体管（Graphene Transistor）\cite{Graphene_transistor}、适合RF电路的碳纳米管场效应晶体管（Carbon Nanotube FET, CNFET）\cite{Carbon_Nanotube_FET}等。但是，这一方向的绝大多数成果还未走出实验室，仍处于初期的前瞻性研究阶段，距离商业化较远。
+前面两种路线仍然是基于硅基集成电路进行拓展，“Beyond CMOS”是指利用CMOS之外的新器件、新材料来制造晶体管，提高芯片的能效。与CMOS相比，这类新器件往往具有更高的密度、更强的性能、更低的功耗，但可能还无法大规模制造或制造成本不能接受。目前，该方向是学术界和工业界研究的热点之一，各种新型方案百花齐放，比如低功耗的隧穿场效应晶体管（Tunneling FET, TFET）\cite{TFET}、与CMOS工艺兼容的单电子晶体管（Single Electron Transistor, SET）\cite{SET}、具有高迁移率的石墨烯晶体管（Graphene Transistor）\cite{Graphene_transistor}、适合RF电路的碳纳米管场效应晶体管（Carbon Nanotube FET, CNFET）\cite{Carbon_Nanotube_FET}等。但是，这一方向的绝大多数成果还未走出实验室，仍处于初期的前瞻性研究阶段，距离商业化较远。
 
 \subsection{近似计算的优势} \label{approximate_computing_advance}
 
