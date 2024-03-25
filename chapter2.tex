@@ -8,11 +8,11 @@
 
 计算机中的数值类型分为无符号数（Unsigned number）和有符号数（Signed number），不论基于哪种数值类型设计的精确乘法器，其运算过程均可以看作以下三个步骤： 部分积的生成、部分积的累加、以及最终相加。对部分积的生成来说，与无符号数相比，采用补码表示的有符号数相乘时需要对部分积进行符号位扩展（Sign extension），并对最后一个部分积执行减法，这一方面增加了部分积的规模，不利于后续的累加操作，另一方面需要硬件支持减法，增加了设计的复杂度。
 安德鲁·唐纳德·布斯（Andrew Donald Booth）于1950年提出了用于二进制补码有符号数相乘的布斯算法\cite{EM:booth_orig}，该算法把符号位和数值位统一进行编码，通过移位操作跳过对乘数（Multiplier）中连续的1进行计算，提高乘法的运算速度，但在某些特殊情况下反而会增加部分积的操作次数
-% \ifdefined\Blind
-% 。
-% \else
+\ifdefined\Blind
+。
+\else
 \footnote{https://www.quora.com/How-does-Booths-algorithm-work/answer/Raymond-Paseman}。
-% \fi
+\fi
 经过改进，基4的布斯编码（Radix-4 Booth encoding）在任何情况下都能将部分积的个数降低一半\cite{EM:booth_Macsorley,EM:booth_proof}，提高了电路的性能，得到了广泛的应用。
 Baugh和Wooley于1973年提出了Baugh-Wooley算法\cite{EM:baugh-wooley}，将补码乘法中所有部分积的权重转换为正数，避免符号位扩展和减法操作，有利于硬件实现。
 与生成相比，部分积的累加方式复杂，优化空间大，因此，采用不同加法结构的累加阵列如华莱士树（Wallace tree）\cite{EM:Wallace}、达达树（Dadda tree）\cite{EM:Dadda}等被广泛研究。
