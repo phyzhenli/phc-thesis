@@ -1002,7 +1002,7 @@ DRUM(7)的功耗和延迟都略高于DesignW，这是因为需要检查的比特
 考虑到$x$和$y$分布相同，所以无需考虑极性，且输入情况可以遍历。假设$R=0.15$，由式\eqref{AC:AM:Adapt:Eq:l_approx}得$l$取$10$，根据算法\ref{AC:AM:Adapt:Alg:lambda}确定$\lambda$为500后，求解\eqref{AC:AM:Adapt:Eq:Obj}得到近似乘法器。
 在1.5GHz的时钟频率约束下与EvoLite\cite{AC:AM:CGP_EvoLite}中的32比特无符号乘法器（简称为Evo32）进行MAE和PDA的对比，结果如图\ref{AC:AM:Adapt:Fig:half-norm_32x32_PDA_MAE}所示，可以看到生成的乘法器与Evo32和DesignW一起组成了帕累拖前沿（Pareto front），证明了方法对大位宽乘法器的有效性。
 
-\section{本章小节}
+\section{本章小结}
 
 
 本章提出了一种由数据分布和输入极性驱动的自动化近似乘法器设计方法，该方法通过逻辑操作和移位操作对乘法器中的部分积在生成后、累加前进行压缩，以减轻后续的累加压力，达到降低电路硬件开销的目的。
