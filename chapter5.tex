@@ -111,7 +111,7 @@ ABC能够利用AIG对布尔网络进行有效地表示和变换，但在电路�
     \label{LS:z_cone_two_cuts}
 \end{figure}
 
-若锥$C_v$内任意节点的扇出均在锥内，则称$C_v$为节点$v$的无扇出锥（Fanout Free Cone, FFC），$v$的所有无扇出锥中最大的那个被称为$v$的最大无扇出锥（Maximum Fanout Free Cone, MFFC），记为MFFC$_v$，易知MFFC有以下性质\cite{LS:exact_rewriting,FPGA:Jason_Cong_1993,FPGA:Jason_Cong_patition}：
+若锥$C_v$内任意节点的扇出均在锥内，则称$C_v$为节点$v$的无扇出锥（Fanout Free Cone, FFC）。$v$的无扇出锥可以有多个，存在一个最大的无扇出锥，被称为$v$的最大无扇出锥（Maximum Fanout Free Cone, MFFC），记为MFFC$_v$。易知MFFC有以下性质\cite{LS:exact_rewriting,FPGA:Jason_Cong_1993,FPGA:Jason_Cong_patition}：
 \begin{itemize}
     \item 一个节点的MFFC有且只有一个；
     \item 若 $w \in \text{MFFC}_v$，则$\text{MFFC}_w \subseteq \text{MFFC}_v$；
