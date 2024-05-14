@@ -1,6 +1,7 @@
 \chapter{攻读学位期间研究成果}
 
-\ifdefined\Blind
+\IfStrEq{\Version}{Anonymous}{
+
 \section*{第一作者:}
 \begin{enumerate}[label={[\arabic*]}]
   \item \textit{2024 IEEE Transactions on Circuits and Systems II: Express Briefs. （在投）}
@@ -12,12 +13,14 @@
 \vspace{5pt}
 \section*{合著作者：}
 \begin{enumerate}[label={[\arabic*]}]
+  \item 第二作者， \textit{2024 IEEE  International Symposium of Electronics Design Automation (ISEDA).}
+  \item 第三作者， \textit{2023 IEEE  International Conference on ASIC (ASICON).}
   \item 第三作者， \textit{2023 IEEE  International Symposium of Electronics Design Automation (ISEDA).}
   \item 第四作者， \textit{2022 IEEE International Symposium on Circuits and Systems (ISCAS).}
   \item 第三作者， \textit{2021 IEEE International Conference on Field-Programmable Technology (ICFPT).}
 \end{enumerate}
 
-\else
+}{
 
 \section*{第一作者（含共同一作）:}
 \begin{enumerate}[label={[\arabic*]}]
@@ -30,9 +33,11 @@
 \vspace{5pt}
 \section*{合著作者：}
 \begin{enumerate}[label={[\arabic*]}]
+  \item Li K, \textbf{Li Z}, Wang L. TLED: Training-Based Approximate Layer Exploration in DNNs with Efficient Multipliers[C]// 2024 International Symposium of Electronics Design Automation (ISEDA). IEEE, 2024.
+  \item Li K, Dai Y, \textbf{Li Z}, et al. Permutation-Based Approximate Multiplier with High Accuracy[C]//2023 IEEE 15th International Conference on ASIC (ASICON). IEEE, 2023: 1-4.
   \item Shi X, Yang M, \textbf{Li Z}, et al. Exploration of FPGA PLB Architecture Base on LUT and Microgates[C]//2023 International Symposium of Electronics Design Automation (ISEDA). IEEE, 2023: 184-189.
   \item Lu Y, Zhang J, Zheng S, \textbf{Li Z}, et al. Low Error-Rate Approximate Multiplier Design for DNNs with Hardware-Driven Co-Optimization[C]//2022 IEEE International Symposium on Circuits and Systems (ISCAS). IEEE, 2022: 3507-3511.
   \item Wang X, Yang M, \textbf{Li Z}, et al. Parallelized Technology Mapping to General PLBs by Adaptive Circuit Partitioning[C]//2021 International Conference on Field-Programmable Technology (ICFPT). IEEE, 2021: 1-5.
 \end{enumerate}
 
-\fi
+}

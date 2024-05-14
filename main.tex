@@ -1,5 +1,5 @@
 % add by zli
-\newcommand*{\Blind}{}
+\newcommand*{\Version}{Open} % Anonymous non-Anonymous Open
 % end by zli
 
 
@@ -261,6 +261,7 @@
 \usepackage{lscape}
 \usepackage{hvfloat}
 \usepackage{pdfpages}
+\usepackage{xstring} % ref: https://tex.stackexchange.com/questions/33576/conditional-typesetting-build
 % add by zli
 
 % 需要的命令可以自行定义
@@ -270,9 +271,9 @@
 
 % add by zli
 \renewcommand{\algorithmcfname}{算法}
-\ifdefined\Blind
+\IfStrEq{\Version}{Anonymous}{
   \fdusetup{ style = {auto-make-cover = false} }
-\fi
+}{}
 \allowdisplaybreaks[4]
 % end by zli
 
@@ -281,11 +282,11 @@
 
 
 % add by zli
-\ifdefined\Blind
+\IfStrEq{\Version}{Anonymous}{
   \begin{titlepage}
     \includepdf{盲审论文封面_李震.pdf}
   \end{titlepage}
-\fi
+}{}
 \begin{sloppypar}
 % end by zli
 
@@ -350,10 +351,9 @@
 % 打印参考文献列表
 \printbibliography
 
-\ifdefined\Blind
-\else
+\IfStrEq{\Version}{Anonymous}{}{
   \include{thanks.tex}
-\fi
+}
 
 \include{pubs.tex}
 

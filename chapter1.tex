@@ -13,12 +13,10 @@
 作为第三次工业革命的起源，集成电路的发明和应用使人类社会从工业时代迈入了信息时代，极大地解放了生产力，推动了人类社会的发展。
 早在集成电路发明早期，英特尔（Intel）的创始人之一戈登·摩尔（Gordon Earle Moore）就预言半导体行业将会迅猛发展，于1965年提出了著名的摩尔定律（Moore's law）\cite{moore_law_0}：集成电路上可容纳的晶体管数目，约每隔一年翻一番（1975年修正为两年\cite{moore_law_1}）。不久后，罗伯特·登纳德（Robert Heath Dennard）发现，晶体管所消耗的电压和电流，会随着晶体管的尺寸做相同比例的减少，功率密度保持不变，这便是著名的登纳德缩放定律（Dennard scaling）\cite{dennard_scaling}。登纳德定律表明，由于单位面积的晶体管的功耗维持稳定，而计算能力会随着每一代工艺节点而提升，芯片将会越来越节能。
 
-近现代的数十年间，半导体制造商一直遵循着摩尔定律，不断缩小晶体管的尺寸，改进晶体管的制造方法
-\ifdefined\Blind
-。
-\else
-\footnote{http://www.wecorp.com.cn/newsdetail.asp?newsid=152}。
-\fi
+近现代的数十年间，半导体制造商一直遵循着摩尔定律，不断缩小晶体管的尺寸，改进晶体管的制造方法%
+\IfStrEq{\Version}{Open}{%
+    \footnote{http://www.wecorp.com.cn/newsdetail.asp?newsid=152}。
+}{。}
 在传统的硅平面工艺被发明40年后，晶体管的栅极长度已经缩小到了100纳米（Nanometer, nm）以下\cite{90nm_uniaxial_strained}，由于短沟道效应（Short-channel effects）的影响\cite{short-channel_effect}和工作电压的下降，载流子的界面散射加剧，迁移率降低，器件的驱动电流减小，响应速度变差。为了改善晶体管的开关特性，工业届各家厂商于2003年-2005年在90nm-65nm节点陆续引入了锗应变调控方法\cite{90nm_ge_strained,65nm_strained}，实现了迁移率的大幅提升。之后，晶体管中电子的量子隧穿效应引起的漏电流问题取代了性能问题，成为了首要考虑事项，为了降低发热，高介电常数金属栅极技术（High-k Metal Gate, HKMG）被Intel于2007年在45nm工艺节点采用\cite{45nm_hkmg}，改进后被再次应用在32nm节点\cite{32nm_hkmg_2nd}。后来，为了进一步降低功耗，半导体制造厂商于2012年左右陆续在22nm及以下制程全面转向由加州大学伯克利分校胡正明教授研发的鳍式场效应晶体管（Fin Field-Effect Transistor, FinFET）\cite{FinFET}，延续了摩尔定律。然而，随着新工艺节点的不断推出，最新的量产工艺已经由台积电（Taiwan Semiconductor Manufacturing Company, TSMC）推进到了3nm，FinFET晶体管几乎达到了物理极限，摩尔定律陷入停滞。
 
 \subsection{计算机体系结构的发展}
@@ -26,12 +24,10 @@
 % （Clock frequency）
 一方面，半导体制造厂商在不断地更新工艺制程以提高晶体管的密度；另一方面，芯片设计厂商也持续地从体系结构层面进行优化，以更好地利用额外增多的晶体管，改善芯片的性能、功耗和面积（Performance-Power-Area, PPA）。在登纳德定律的指导下，早期的集成电路设计厂商孜孜不倦地提高芯片的时钟频率，实现性能更高的单核处理器。英特尔甚至在2000年就豪言要在2011年将其生产的中央处理器（Central Processing Unit, CPU）推进至10GHz（Gigahertz）。然而，随着晶体管尺寸的持续缩小，电子的量子隧穿效应（Quantum tunneling effect）开始显露，晶体管的漏电流不断增加，功耗不减反增，登纳德定律开始失效，人们无法再简单地通过增加芯片的时钟频率来提高单核芯片的性能。同时，人们意识到，更高的时钟频率并不一定会带来芯片性能的增强。在1986年-2002年左右，伴随着主频提升的指令级并行（Instruction Level Parallelism, ILP）技术是提高处理器性能的主要方法。然而，过深的流水线会导致分支预测（Branch prediction）出错时需要花费巨大的代价来恢复状态，平白浪费许多能量，带来不可忽视的性能损失\cite{new_golden}。
 同时，虽然单核处理器性能每年以50\%的速度进行提升，但内存性能的提升每年仅约7\%，这导致了冯·诺依曼结构（Von Neumann architecture）\cite{von_arch}下严重的内存墙问题（The memory wall problem）\cite{memory_wall}，考虑到内存访问所需要的时间远大于CPU的计算时间，盲目提升处理器主频的作用非常有限。
-另外，随着互联网的快速发展，应用的类型从传统的计算密集型向数据密集型转变，这一方面使控制流变得不规则，导致难以有效利用ILP技术提升性能，另一方面导致了大量的数据搬移，加剧了内存墙问题带来的负面影响
-\ifdefined\Blind
-。
-\else
-\footnote{https://blog.51cto.com/echo1937/1294895}。
-\fi
+另外，随着互联网的快速发展，应用的类型从传统的计算密集型向数据密集型转变，这一方面使控制流变得不规则，导致难以有效利用ILP技术提升性能，另一方面导致了大量的数据搬移，加剧了内存墙问题带来的负面影响%
+\IfStrEq{\Version}{Open}{%
+    \footnote{https://blog.51cto.com/echo1937/1294895}。
+}{。}
 最后，芯片互连线延迟所占比例的持续上升和设计复杂度的不断增加也迫使研究人员停止开发更高速的单核处理器，转而将目光朝向多核架构的研究\cite{free_lauch_over}。
 如图\ref{50yrs_processor_trend}所示\cite{50yrs_processor_trend}，以2005年英特尔放弃研发4GHz的奔腾四（Pentium IV）处理器为标志，多核设计开始兴起\cite{计算机体系结构基础}。
 
@@ -71,12 +67,10 @@
 
 \subsection{后摩尔时代的技术路线}
 
-以生成式AI（Generative AI）为代表的人工智能等应用的发展，对半导体材料和器件提出了更高的要求。当前，随着硅晶体管的演进接近物理极限，不仅特征尺寸的缩小越来越困难，迭代产生的工艺红利也消失殆尽，硅基电子技术临近生命周期极限。为了探索集成电路领域新的发展规律，持续提高芯片能效，学术界和工业界提出了多个发展方向，这里列举几个典型的技术路线
-\ifdefined\Blind
-：
-\else
-\footnote{https://irds.ieee.org/editions/2022}：
-\fi
+以生成式AI（Generative AI）为代表的人工智能等应用的发展，对半导体材料和器件提出了更高的要求。当前，随着硅晶体管的演进接近物理极限，不仅特征尺寸的缩小越来越困难，迭代产生的工艺红利也消失殆尽，硅基电子技术临近生命周期极限。为了探索集成电路领域新的发展规律，持续提高芯片能效，学术界和工业界提出了多个发展方向，这里列举几个典型的技术路线%
+\IfStrEq{\Version}{Open}{%
+    \footnote{https://irds.ieee.org/editions/2022}：
+}{：}
 
 （1）More Moore\cite{more_moore}
 
