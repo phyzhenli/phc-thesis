@@ -9,7 +9,7 @@
 计算机中的数值类型分为无符号数（Unsigned number）和有符号数（Signed number），不论基于哪种数值类型设计的精确乘法器，其运算过程均可以看作以下三个步骤： 部分积的生成、部分积的累加、以及最终相加。对部分积的生成来说，与无符号数相比，采用补码表示的有符号数相乘时需要对部分积进行符号位扩展（Sign extension），并对最后一个部分积执行减法，这一方面增加了部分积的规模，不利于后续的累加操作，另一方面需要硬件支持减法，增加了设计的复杂度。
 安德鲁·唐纳德·布斯（Andrew Donald Booth）于1950年提出了用于二进制补码有符号数相乘的布斯算法\cite{EM:booth_orig}，该算法把符号位和数值位统一进行编码，通过移位操作跳过对乘数（Multiplier）中连续的1进行计算，提高乘法的运算速度，但在某些特殊情况下反而会增加部分积的操作次数%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://www.quora.com/How-does-Booths-algorithm-work/answer/Raymond-Paseman}。
+    \footnote{\url{https://www.quora.com/How-does-Booths-algorithm-work/answer/Raymond-Paseman}}。
 }{。}
 经过改进，基4的布斯编码（Radix-4 Booth encoding）在任何情况下都能将部分积的个数降低一半\cite{EM:booth_Macsorley,EM:booth_proof}，提高了电路的性能，得到了广泛的应用。
 Baugh和Wooley于1973年提出了Baugh-Wooley算法\cite{EM:baugh-wooley}，将补码乘法中所有部分积的权重转换为正数，避免符号位扩展和减法操作，有利于硬件实现。
@@ -76,7 +76,7 @@ Baugh和Wooley于1973年提出了Baugh-Wooley算法\cite{EM:baugh-wooley}，将�
 
 这里$n+m \ge 2$（引入了一位符号位），$n=1$和$m=0$时分别表示补码纯小数和补码整数。若不局限于二进制，式\eqref{EM:Eq:signed_fixed_Decimal}不一定成立%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://blog.csdn.net/mydreamongo/article/details/8863502}，
+    \footnote{\url{https://blog.csdn.net/mydreamongo/article/details/8863502}}，
 }{，}
 即任意$R$进制下，补码的最高位权重不一定是$-R^{n-1}$。
 另外，一般地，对一个$N$位二进制定点数，忽略小数点，不同编码方式能够表示的数值范围为：
@@ -233,7 +233,7 @@ $n=5$时，式\eqref{EM:Eq:signed_comp_P}对应的部分积阵列如图\ref{EM:F
 \end{equation}
 Hatamian等人根据式\eqref{EM:Eq:signed_comp_P_Baugh-Wooley_modified}对部分积进行了重新排列\cite{EM:baugh-wooley_modified_PP_reorga}，得到了\ref{EM:Fig:modified_Baugh-Wooley_PP}，被称为改进的Baugh-Wooley算法%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://zhuanlan.zhihu.com/p/343133392}，
+    \footnote{\url{https://zhuanlan.zhihu.com/p/343133392}}，
 }{，}
 只对部分积引入两个1，不增加部分积阵列的层数，得到了广泛的应用\cite{EM:baugh-wooley_diff}。
 
@@ -306,7 +306,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 
 除了补码有符号数乘法，布斯算法也可以用于无符号数相乘%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://picture.iczhiku.com/resource/eetop/whKDFaTwqTZOkCxn.pdf}，
+    \footnote{\url{https://picture.iczhiku.com/resource/eetop/whKDFaTwqTZOkCxn.pdf}}，
 }{，}
 为了支持布斯编码中需要的减法操作，无符号乘法的部分积也应采用补码格式。若基数取4，编码形式仍然是$-2 y_{i+1} + y_i + y_{i-1}$，但与补码乘法的区别在于：（a）$n$是偶数时需要添加的不仅是$y_{-1} = 0$，还有$y_{n+1} = y_n = 0$，此时$\{y_{n+1}, y_n, y_{n-1} \}$编码得到的部分积一定是0或正数，部分积总数为$\dfrac{n}{2} + 1$个；（b）$n$是奇数时需要添加$y_n = y_{-1} = 0$，部分积总数为$\dfrac{n+1}{2}$个；（c）改进的符号位扩展方法实现细节略有不同。
 
@@ -405,7 +405,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 从图中可以看到，4个8比特位宽的操作数经过两级全加器的运算变成了2个操作数，其中第一级全加器产生了$A$、$B$和$C$的进位及求和，之后和$D$一起被第二级全加器进行压缩，最后送给向量合并加法器进行求和。与阵列累加相比，CSA累加部分积的速度更快，性能更高。
 注意这里的CSA并不会对操作数进行分组后并行累加，而是逐级累加\cite{数字集成电路_第十一章_设计运算功能块}，这点与接下来讲的树形加法器有本质区别%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://blog.csdn.net/qq\_26707507/article/details/106146612}。
+    \footnote{\url{https://blog.csdn.net/qq_26707507/article/details/106146612}}。
 }{。}
 
 \subsubsection{树形加法器}
@@ -428,7 +428,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 
 达达树（Dadda tree）加法器是由计算机科学家Luigi Dadda于1965年发明的一种树形加法结构\cite{EM:Dadda}，与华莱士树方法类似，达达树也是采用全加器和半加器对部分积进行压缩，直到只剩下两个部分积。区别在于，Luigi Dadda对华莱士树进行了重构，在树的级数（深度）不变的情况下使用了数量更少的全加器和半加器，节省了硬件资源，但缺点是最后两个部分积的位宽可能会稍大。具体步骤如下%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://en.wikipedia.org/wiki/Dadda\_multiplier}：
+    \footnote{\url{https://en.wikipedia.org/wiki/Dadda_multiplier}}：
 }{：}
 \begin{itemize}
     \item 部分积的累加过程由一个正整数序列$d_j$来控制：$d_1=2$，$d_{j+1}=\lfloor 1.5 \rfloor d_j$，$\lfloor \ \rfloor$表示向下取整；
@@ -468,7 +468,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 若$p_i=1$，则$g_i =0$，$c_{i+1}=c_i$，若$p_i=0$，则$c_{i+1}=g_i$，因此$p_i$和$g_i$分别被称为第$i$级加法器的传播信号和生成信号。
 对$c_{i}, c_{i-1},c_{i-2},\cdots,c_{1}$使用式\eqref{EM:Eq:CLA}，可将$c_{i+1}$的求解转换为输入数的逻辑操作（假设$c_0=0$），避免了RCA中的进位依赖问题，实现了效率的提升。与RCA相比，CLA的关键路径短，速度快，但在加法器位宽较大时，CLA中高位的进位输出表达式涉及的变量较多，存在较大扇入扇出的问题。同时，组合逻辑电路的输入信号过多也会引起竞争冒险（Race hazard），产生毛刺（Glitch），影响系统的稳定性。所以在加法器的位宽较大时，要想利用CLA提高进位效率，通常会先对操作数进行划分，对每个部分实行CLA，CLA之间再通过级联或嵌套等方式进行连接%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://zhuanlan.zhihu.com/p/378267920}，
+    \footnote{\url{https://zhuanlan.zhihu.com/p/378267920}}，
 }{，}
 以避免大输入位宽逻辑门的产生。其中，采用级联对各CLA块之间进行连接的方式被称为分块CLA，采用嵌套对各CLA块之间进行连接的方式被称为分级CLA。
 灵活地对操作数进行划分并嵌套，能够得到许多不同的CLA结构，可在面积和速度之间进行权衡，存在一套能够简洁表示各种分级超前进位结构的符号体系，具体内容在后面的并行前缀加法器中详细讲述。
@@ -491,7 +491,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 
 但是，与RCA相比，CSKA并没有明显的性能改进（如图\ref{EM:Fig:CSKA_4bit}中的关键路径$\tau_{\text{crit}}$同样需要经过4个全加器）。因此，当位宽较大时，采用分块CSKA（Block CSKA）的办法才能取得较为显著的速度增益。若一个$n$比特的分块CSKA有$m$块CSKA，每块CSKA的位宽均为$\dfrac{n}{m}$，则该分块CSKA被称为固定大小分块CSKA%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://en.wikipedia.org/wiki/Carry-skip\_adder}。
+    \footnote{\url{https://en.wikipedia.org/wiki/Carry-skip_adder}}。
 }{。}
 \begin{figure}[!htb]
     \centering
@@ -528,7 +528,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 图\ref{EM:Fig:CSEA_linear}展示了一个16比特线性CSEA的结构示意图，该加法器由一个4比特RCA和三个4比特CSEA组成，其关键路径包括初始的4比特RCA和后续三个MUX，可通过以下过程理解：当初始的RCA计算完成时，后面所有的小CSEA中的RCA均计算完成，只需等待真正的进位输入信号进行选择即可。
 通常来讲，对于一个$n$比特线性CSEA，每个小CSEA的位宽取$\lfloor \sqrt n \rfloor$性能最好%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://en.wikipedia.org/wiki/Carry-select\_adder}，
+    \footnote{\url{https://en.wikipedia.org/wiki/Carry-select_adder}}，
 }{，}
 这里$\lfloor \ \rfloor$代表向下取整。
 
@@ -715,7 +715,7 @@ PPC可由树状图进行表示，图\ref{EM:Fig:PPC_CLA_RCA}展示了标准超�
 
 在C++中，Mitchell算法有一个非常简单的实现%
 \IfStrEq{\Version}{Open}{%
-    \footnote{https://kexue.fm/archives/7991}，
+    \footnote{\url{https://kexue.fm/archives/7991}}，
 }{，}
 单精度（Single precision）浮点数Mitchell算法的代码如算法\ref{EM:Alg:mitchell_Cpp}所示\cite{DNN:mitchell_Training}，原理如下：
 
