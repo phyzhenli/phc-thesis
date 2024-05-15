@@ -46,8 +46,8 @@
 \end{equation}
 式中$W_s$和$W_p$为任务规模中的串行分量（不能被并行的部分）和并行分量（可以被并行的部分），可见加速比上限由任务中不能被并行处理的部分决定，若程序没有并行分量，那么不论使用多少核的处理器，任务都无法被加速；（3）由于内存提升的速度远小于处理器提升的速度，导致内存墙问题越来越严重，对某些应用来讲，盲目堆砌多核，不但不能加速任务的处理，反而导致了性能的下降\cite{multicore_bad}。
 
-为了解决多核架构遇到的问题，软件和硬件人员分别从两方面入手进行优化。一方面，与多核处理器配套的软件如操作系统和编译器等工具开始充分发展，尽可能利用多核架构的优点，提高任务的运行速度；另一方面，计算机体系结构人员开始采用不同的方法来解决“暗硅”问题和内存墙问题。对于内存墙问题，研究人员使用多级缓存（Multi-level caches）结构和更先进的分支预测方法来增加cache的命中率；对于“暗硅”问题，学术界和工业界提出了3个方法来充分利用未工作的晶体管\cite{is_dark_silicon}：（1）低速多核。把处理器中每个核的运行频率限制在一个较低的水平，充分利用处理器的并行性，提高运算能力，例如英特尔设计的采用太阳能供电的x86多核处理器\cite{solar_x86}；（2）自动超频。允许多个核心在短时间内达到很高的频率用来处理高计算量的任务，之后迅速将每个核心的频率降低来减缓发热，常用于由电池供电的对功耗有严格要求的芯片；（3）专用集成电路（Application-Specific Integrated Circuit， ASIC）。利用ASIC性能高、发热低的优点，把“暗硅”部分设计成专用加速器，将CPU和ASIC结合，提高整体的处理能力。
-为了得到能效更高的处理器，设计人员往往结合多种方法进行优化，比如英特尔的睿频技术（Turbo Boost Technology）\cite{intel_turbo_boost}，ARM的大小核架构（big.LITTLE）\cite{arm_big_little}等。发展到现代，广义的处理器已经不仅仅是一个只有传统运算核心的芯片，而是成为了一个包含许多专用处理单元如GPU（Graphics Processing Unit）、NPU（Neural Processing Unit）、ISP（Image Signal Processor）、嵌入式FPGA（embedded Field Programmable Gate Array, eFPGA）、DSP（Digital Signal Processing）等模块的复杂异构片上系统（System on Chip, SoC）。
+为了解决多核架构遇到的问题，软件和硬件人员分别从两方面入手进行优化。一方面，与多核处理器配套的软件如操作系统和编译器等工具开始充分发展，尽可能利用多核架构的优点，提高任务的运行速度；另一方面，计算机体系结构人员开始采用不同的方法来解决“暗硅”问题和内存墙问题。对于内存墙问题，研究人员使用多级缓存（Multi-level caches）结构和更先进的分支预测方法来增加cache的命中率；对于“暗硅”问题，学术界和工业界提出了3个方法来充分利用未工作的晶体管\cite{is_dark_silicon}：（1）低速多核。把处理器中每个核的运行频率限制在一个较低的水平，充分利用处理器的并行性，提高运算能力，例如英特尔设计的采用太阳能供电的x86多核处理器\cite{solar_x86}；（2）自动超频。允许多个核心在短时间内达到很高的频率用来处理高计算量的任务，之后迅速将每个核心的频率降低来减缓发热，常用于由电池供电的对功耗有严格要求的芯片；（3）专用集成电路。利用ASIC性能高、发热低的优点，把“暗硅”部分设计成专用加速器，将CPU和ASIC结合，提高整体的处理能力。
+为了得到能效更高的处理器，设计人员往往结合多种方法进行优化，比如英特尔的睿频技术（Turbo Boost Technology）\cite{intel_turbo_boost}，ARM的大小核架构（big.LITTLE）\cite{arm_big_little}等。发展到现代，广义的处理器已经不仅仅是一个只有传统运算核心的芯片，而是成为了一个包含许多专用处理单元如GPU（Graphics Processing Unit）、NPU（Neural Processing Unit）、ISP（Image Signal Processor）、嵌入式FPGA（embedded FPGA, eFPGA）、DSP（Digital Signal Processing）等模块的复杂异构片上系统（System on Chip, SoC）。
 
 随着机器学习（Machine Learning, ML）的飞速发展，人工智能（Artificial Intelligence, AI）模型对算力的需求激增。在2012年之前，训练一个ML系统所需的算力大约每17到29个月翻一番\cite{AI:computing_demand_trend}，增长率和摩尔定律保持一致。然而，2012年杰弗里·辛顿（Geoffrey Everest Hinton）的学生亚历克斯·克里泽夫斯基（Alex Krizhevsky）设计了AlexNet\cite{AI:AlexNet}这一8层卷积神经网络（Convolutional Neural Network, CNN），利用GPU夺得了ImageNet LSVRC（Large Scale Visual Recognition Challenge）竞赛的冠军，并大幅领先第二名10.8个百分点，掀起了CNN研究的热潮，深度学习（Deep Learning）迎来了大爆发。伴随着互联网的快速发展和全球社会数字化转型带来的海量数据，深度学习常规模型（Regular-scale Model）训练一次所需的算力大约每4-9个月翻一番\cite{AI:computing_demand_trend}。同时，随着2016年以谷歌（Google）的AlphaGo\cite{AI:AlphaGo}战胜韩国棋手李世石为代表，大规模模型（Large-Scale Model）开始引领人工智能的潮流，计算量大约每9到10个月翻一番\cite{AI:computing_demand_trend}。如此巨大的算力需求和不断改变的算法模式是传统的运算芯片所无能为力的，于是各种领域专用架构（Domain-Specific Architecture, DSA）竞相涌现，牺牲了部分的通用性，实现了高能效计算，如寒武纪的DianNao\cite{Accelerator:DianNao}、Google的TPU（Tensor Processing Unit）\cite{Accelerator:TPU}、GraphCore的IPU（Intelligence Processing Unit）\cite{Accelerator:IPU}、华为的DaVinci架构\cite{Accelerator:DaVinci}、百度的昆仑芯片\cite{Accelerator:Kunlun}等，计算机体系结构迎来了新黄金时代\cite{new_golden}。与ASIC相比，DSA的通用性更强，能够适应日新月异的AI算法。
 同时，CPU、GPU和FPGA架构也不断革新，引入了各种针对ML应用的专用处理单元，如Intel至强（Xeon）处理器中的AI加速单元\cite{Accelerator:intel_xeon_4th}、英伟达（Nvidia）GPU中的张量计算核心（Tensor Core）\cite{Accelerator:nvdia_h100_tensor_core_4th}、赛灵思（Xilinx）FPGA中的AI引擎（AI Engine, AIE）\cite{Accelerator:amd_versal_AIE}。
@@ -123,7 +123,7 @@
 
 （2）面向FPGA，设计并开源了一个基于黑盒优化的近似乘法器生成器，该方法假设乘法器的部分积在生成后、累加前存在一次由半加器阵列进行的压缩操作，针对半加器，提出删减（Eliminate）、或之和（OR $Sum$）、直接进位（Direct $Cout$）、精确（Exact）四种简化方法，利用贝叶斯优化（Bayesian optimization）和详细设计的能够同时考虑硬件PPA和软件精度的目标函数（$cost$ function）对半加器的优化空间进行探索，生成高质量的近似乘法器集合。与国际前沿工作中1167个近似乘法器相比，生成的乘法器综合指标平均提升28.70\%-38.47\%，且处于帕累托前沿（Pareto front）。
 
-（3）基于前面两种自动化方法得到的ASIC和FPGA乘法器库，首先针对传统逻辑综合，提出并开源了一个基于MFFC（Maximum Fanout-Free Cone）自适应超图划分的强化学习（Reinforcement learning）逻辑优化序列探索框架。基于超过150个电路的实验结果表明，面积延迟积（Area Delay Product, ADP）比ABC\cite{LS:ABC} resyn2平均提高了5.17\%；然后将框架与近似乘法器库结合，对基于不同近似乘法器实现的DNN加速器进行了研究，结果显示近似乘法器的单独硬件成本提升与对应加速器的硬件成本提升存在一定偏差。
+（3）基于前面两种自动化方法得到的ASIC和FPGA乘法器库，首先针对传统逻辑综合，提出并开源了一个基于MFFC自适应超图划分的强化学习（Reinforcement learning）逻辑优化序列探索框架。基于超过150个电路的实验结果表明，面积延迟积（Area Delay Product, ADP）比ABC\cite{LS:ABC} resyn2平均提高了5.17\%；然后将框架与近似乘法器库结合，对基于不同近似乘法器实现的DNN加速器进行了研究，结果显示近似乘法器的单独硬件成本提升与对应加速器的硬件成本提升存在一定偏差。
 
 本文共有六个章节，各章节的组织结构安排如下：
 
@@ -135,7 +135,7 @@
 
 第四章，FPGA近似乘法器设计。首先介绍了学术界提出的面向FPGA领域的多种近似乘法器设计方法，主要是通过手工修改查找表（LookUp Table, LUT）编码的方式实现；接着提出了基于黑盒优化的自动化近似乘法器生成器，并与国际前沿工作进行误差和硬件开销比较。
 
-第五章，近似逻辑综合。首先介绍了传统的逻辑综合，设计并实现了一个基于MFFC（Maximum Fanout-Free Cone）自适应超图划分的强化学习逻辑优化序列探索框架，并与已有的序列优化方法进行对比；之后与近似乘法器库结合，探究不同近似乘法器对DNN硬件加速器带来的影响。
+第五章，近似逻辑综合。首先介绍了传统的逻辑综合，设计并实现了一个基于MFFC自适应超图划分的强化学习逻辑优化序列探索框架，并与已有的序列优化方法进行对比；之后与近似乘法器库结合，探究不同近似乘法器对DNN硬件加速器带来的影响。
 
 第六章，总结与展望。该章节总结了本文的主要研究工作和成果，分析了工作中存在的局限性，并对未来进一步的探索方向进行了展望。
 

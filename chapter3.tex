@@ -939,7 +939,7 @@ DRUM(7)的功耗和延迟都略高于DesignW，这是因为需要检查的比特
 \end{figure}
 
 首先在精确乘法下运行滤波器并得到对应的权重数据，结果如图\ref{AC:AM:Adapt:FIR:Fig:weight_distribution}所示，可以看到分布是不均匀的。
-假设$R=0.2$，由式\ref{AC:AM:Adapt:Eq:l_approx}得$l=6$，根据算法\ref{AC:AM:Adapt:Alg:lambda}得$P=0$和$P=1$下的$\lambda$下均为5000，基于式\eqref{AC:AM:Adapt:Eq:Obj}生成近似乘法器并进行峰值信噪比（Peak Signal-to-Noise Ratio, PSNR）的评估。
+假设$R=0.2$，由式\ref{AC:AM:Adapt:Eq:l_approx}得$l=6$，根据算法\ref{AC:AM:Adapt:Alg:lambda}得$P=0$和$P=1$下的$\lambda$下均为5000，基于式\eqref{AC:AM:Adapt:Eq:Obj}生成近似乘法器并进行PSNR的评估。
 
 \begin{figure}[!ht]
     \centering
