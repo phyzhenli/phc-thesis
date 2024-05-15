@@ -4,4 +4,4 @@
 
 英文标题：High-Efficient Approximate Multiplier Design and Synthesis
 
-master分支：开源， reviewerC分支：盲审及终稿。
+master分支：开源， reviewerC分支：二次送审及终稿。
