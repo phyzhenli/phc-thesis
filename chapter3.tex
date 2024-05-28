@@ -1,181 +1,7 @@
-\chapter{考虑输入分布和极性的ASIC近似乘法器设计方法}
+\chapter{ASIC近似乘法器}
 
 
-\section{研究背景}
-
-近年来，随着物联网设备（Internet of Things, IoT）的快速发展及其严格的资源限制，在IoT中部署如图像处理（Image processing）、数据挖掘（Data mining）、多媒体技术（Multimedia technology）、深度学习等计算密集型应用成为了一个严峻的挑战\cite{AC:AM:survey_zhuocheng}。幸运地是，这类应用往往具有容错性，利用近似乘法器对被频繁调用的乘法操作在硬件上进行优化，一方面能够提高处理速度、减少资源消耗，另一方面又不会带来明显的输出质量下降。
-
-\section{国内外研究现状}
-
-在数字电路系统中，乘法器作为一个能够实现两个数相乘的运算电路，已经被研究了几十年，其性能和功耗依赖于设计的电路结构（见\ref{精确乘法器}）。为了结合容错类应用进一步提高效率，人们提出了近似乘法器的概念，与精确乘法器相比，近似乘法器（Approximate multiplier）通常具有更小的面积、更低的延迟、更优的功耗，但在某些情况会输出不正确的结果。目前有关近似乘法器在功能近似层面（见\ref{approximate_computing_advance}有关功能近似的定义）的设计方法大致可以分为四类：手工设计、数学转换近似、自动化方法和近似电路综合，下面分别进行介绍。
-
-\subsection{手工设计}
-
-手动化简乘法器的电路或门级网表的方法被称为手工设计方法，这种方法的优点在于通常能在不同位宽的乘法器之前迁移，缺点是费时费力，且无法灵活地根据应用的错误容忍程度进行调整，效果较差。
-
-较为经典的一篇有关手工设计近似乘法器的工作是由Kulkarni等人\cite{AC:AM:KMap}于2011年发表的，他们观察到$2 \times 2$精确乘法器只有在输入是$3 \times 3$的时候才需要4个比特对输出进行表示，于是修改了卡诺图（Karnaugh map），将$3 \times 3 = 9$变为了$3 \times 3 = 7$，输出从原先需要4个比特减少到了3个比特，乘法器的门数降低了37.5\%，面积消耗更小。与精确的$2 \times 2$乘法器相比，该近似乘法器在16种可能的输入情况中，只有一种情况输出是错误的，误差率ER是$\dfrac{1}{16}$，由式\eqref{AC:Arith:ED}得输入为3$\times$3时的误差距离ED为$|7 − 9| = 2$。经过EDA软件评估，近似后的$2 \times 2$乘法器的面积相比精确版本减少了一半，并且拥有更短的关键路径。同时，由于近似后乘法器的开关电容更小，在相同工作频率下的动态功耗也更低。大位宽的乘法器可通过拆分的方法由近似的$2 \times 2$乘法器搭建起来，且搭建时可让高位输入保持精确乘法来降低误差。
-
-文献\cite{AC:AM:CR}对行波进位加法器RCA中的全加器进行了重新设计，将进位输入信号替换成了前一级全加器的非进位输入，使进位链最多只能传播两位，优化了关键路径，降低了计算延迟，同时将截断进位链产生的误差保存了下来。优化后的全加器被排列成树形用于乘法器中部分积的累加及最终相加，并在最终相加后根据需要引入不同等级的误差补偿，提高乘法器的精度。精确的误差补偿需要考虑所有全加器保存的误差并相加，为了降低设计复杂度，仅考虑最高几位全加器保存的误差，通过或（OR）操作运算后加到最终的输出上。
-图\ref{AC:AM:Fig:CR_app_adder}代表论文提出的考虑两级输入的近似全加器电路图，其中$S_i$和$E_i$分别代表求和输出与保存的误差。图\ref{AC:AM:Fig:CR_app_mul}展示了论文提出的基于近似全加器单元设计的近似乘法器的结构示意图，其中A1-A7代表树形的近似全加器阵列，一方面对部分积进行累加，一方面保留产生的误差，最后的补偿步骤选择最高4位全加器的结果进行运算。需要注意的是，因为保存的误差是通过或操作运算之后相加到结果上，所以即使考虑所有全加器保存的误差也无法将误差率降到0（正确的做法不是或运算而是相加）。
-\begin{figure}[!htb]
-    \centering
-    \subfigure[考虑两级输入的近似全加器单元]{
-    \label{AC:AM:Fig:CR_app_adder}
-    \begin{minipage}[t]{0.3\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figs/AC-AM-CR_app_adder.png}
-    \end{minipage}
-    }
-    \subfigure[提出的带有误差补偿模块的近似乘法器示意图]{
-    \label{AC:AM:Fig:CR_app_mul}
-    \begin{minipage}[t]{0.66\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figs/AC-AM-CR_app_mul.png}
-    \end{minipage}
-    }
-\caption{近似全加器单元和近似乘法器结构示意图}
-\end{figure}
-
-文献\cite{AC:AM:SDLC}在部分积生成后、累加前，先通过逻辑或（OR）操作有选择地对部分积进行了一次压缩，大大降低了部分积阵列的规模，减轻了后续的累加压力。除了2输入的或操作之外，更大输入的或操作也可以被使用，好处是部分积规模下降的更多，坏处是引入的误差更大。图\ref{AC:AM:Fig:SDLC_OR3}展示了利用3输入或门对部分积阵列进行压缩的过程：首先对部分积进行分组，每3个部分积一组，不足3个的可保持或使用更小输入的或门，同时避免操作高位部分积以减少误差，压缩后的部分积个数由8个减少为3个，降低了62.5\%。该论文提出的方法适用于不同位宽的乘法器，通过Synopsys Design Compiler综合工具对基于此方法设计的128比特位宽的近似乘法器进行评估发现，与精确乘法器相比，面积减少了45\%，关键路径减少了65\%。
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=\textwidth]{figs/AC-AM-SDLC_OR3.png}
-    \caption{利用3输入或门对部分积阵列进行压缩}
-\label{AC:AM:Fig:SDLC_OR3}
-\end{figure}
-
-文献\cite{AC:AM:DRUM}提出了一个用于两个无符号数相乘的动态无偏可配置乘法器DRUM，其基本思想是通过动态识别乘数和被乘数中权重最大的1的位置、挑选出以该位置开头的几个连续比特并对尾部数据进行四舍五入之后，利用一个小位宽的乘法器完成核心运算。整个电路包括检测器、四舍五入编码器、小位宽乘法器以及最后的移位器，可通过配置小乘法器的位宽来实现不同的精度。同时，该乘法器是无偏的，即平均误差为0（见\ref{近似电路的误差指标}有关平均误差的定义）；该乘法器也是对称的，即对任意输入，交换乘数和被乘数后结果一致，没有极性。图\ref{AC:AM:Fig:DRUM_example}展示了DRUM计算过程的一个示例，在对操作数中挑出的部分比特四舍五入并执行乘法后，通过移位操作得到最终的结果。
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figs/AC-AM-DRUM_example.png}
-    \caption{DRUM计算过程的一个示例}
-\label{AC:AM:Fig:DRUM_example}
-\end{figure}
-
-文献\cite{AC:AM:TOSAM}对式\eqref{EM:Eq:mitchell_P_orig}进行了变形：
-\begin{align}
-    V(P) = & \ 2^{k_X + k_Y} ( \ 1 + x^{\prime} \ ) ( \ 1 + y^{\prime} \ ) \notag \\
-         = & \ 2^{k_X + k_Y} ( \ 1 + x^{\prime} \cdot y^{\prime} + x^{\prime} + y^{\prime} \ ) \notag \\
-         \approx & \ 2^{k_X + k_Y} ( \ 1 + x^{\prime}_{App} y^{\prime}_{App} + x^{\prime}_T + y^{\prime}_T \ )
-\label{AC:AM:Eq:TOSAM}
-\end{align}
-其中，$x^{\prime}_{App}$、$y^{\prime}_{App}$、$x^{\prime}_T$、$y^{\prime}_T$均是操作数中的部分比特，但与DRUM相比没有对尾部数据进行四舍五入而是直接丢弃，这样原始乘法被转换成了一个小位宽乘法和两个加法，减少了电路面积。同时，
-$x^{\prime}_{App}$、$x^{\prime}_T$（或$y^{\prime}_{App}$、$y^{\prime}_T$）的位宽可以进行灵活地配置，能够满足不同应用的精度需求。
-
-手工设计近似乘法器的方法众多，相当大一部分工作着重于对部分积的累加进行优化，这里只列举了几个比较典型和巧妙的示例，接下来介绍通过数学转换近似来实现近似乘法。
-
-\subsection{数学转换近似}
-
-数学转换近似通常需要问题满足一定的数学特性，通过将乘法转换为成本更低的操作来达到降低设计复杂度的目的，Mitchell提出的对数乘法器\cite{EM:mitchell}（见\ref{对数乘法器}）可以看作是此方法的一个例子。乘法是一个非线性操作，文献\cite{AC:AM:OU}通过分段线性函数（Piece-wise linear function）来近似浮点数乘法中的尾数乘法器，原理如下：
-
-假设近似乘法器基于线性基空间$\{1, x, y, x^2, y^2\}$实现，输入是$x$和$y$，范围分别是$[x_1,x_2]$和$[y_1,y_2]$（$x_2 > x_1 \ge 0$，$y_2 > y_1 \ge 0$），则输出$z_{approx}$为：
-\begin{equation}
-    z_{approx} = k_0 + k_1 x + k_2 y + k_3 x^2 + k_4 y^2
-\end{equation}
-式中$k_0 \sim k_4$是待定常数。由\eqref{AC:Arith:ED}得误差距离ED的平方为：
-\begin{equation}
-    ED^2 = | \ z_{approx} - xy \ | ^2
-\label{AC:AM:OU_ED2}
-\end{equation}
-通过最小化\eqref{AC:AM:OU_ED2}可以得到$k_0 \sim k_4$的解析解为：
-\begin{equation}
-    [k_{0}, k_{1}, k_{2}, k_{3}, k_{4}]=[-\frac{(x_{1}+x_{2})(y_{1}+y_{2})}{4},\frac{y_{1}+y_{2}}{2},\frac{x_{1}+x_{2}}{2}, 0,0]
-\end{equation}
-即将精确乘法转换为了线性操作：
-\begin{equation} 
-    xy \approx z_{approx} = k_{0}+k_{1}x+k_{2}y
-\label{AC:AM:OU_AM}
-\end{equation}
-该近似乘法器在基空间$\{1, x, y, x^2, y^2\}$上误差距离ED的平方最小，且有以下几个性质：（1）对式\eqref{AC:AM:OU_AM}来说，当$\{x,y\}$取$\{x_1,y_1\}$、$\{x_1,y_2\}$、$\{x_2,y_1\}$、$\{x_2,y_2\}$时该近似乘法器的误差最大；（2）所得到的近似乘法器是无偏的，即平均误差为0：
-\begin{equation} 
-    \int\nolimits_{x_{1}}^{x_{2}}\int\nolimits_{y_{1}}^{y_{2}} ( \ k_{0}+k_{1}x+k_{2}y - xy \ ) \ dxdy = 0
-\end{equation}
-（3）若对精确乘法按照此论文提出的方法进行分段线性近似，即将输入范围$[x_1,x_2] \times [x_1,x_2]$划分为若干个子区域，在每个子区域内也将乘法转换成如式\eqref{AC:AM:OU_AM}所示的线性操作，则每个子区域面积相等时整个乘法器的误差距离ED的平方最小，且最小为：
-\begin{equation}
-    ED^2_\text{min} = \dfrac{ (x_2 - x_1)^3 (y_2 - y_1)^3 }{144 n^2}
-\end{equation}
-$n$是子区域的个数，因此可以通过不断划分面积相等的子区域来提高乘法器的精度。
-
-对于浮点数来讲，尾数的取值范围为$[1,2)$，在不划分子区域的情况下，得到的近似乘法器为：
-\begin{equation}
-    z^0_{approx} = 1.5 x + 1.5 y - 2.25
-\end{equation}
-为了提高精度且方便硬件实现，对定义域进行划分，第$i$次划分后共生成$4^i$个子区域，每个子区域的面积相等。假设乘法器第$i$次划分后的输出比第$i-1$次划分后的输出差了$\Delta z^i_{approx}$，则：
-\begin{equation}
-    \Delta z^i_{approx} = z^i_{approx} -  z^{i-1}_{approx}
-\end{equation}
-经过证明，对任意的$i$，$\Delta z^i_{approx}$都可由一个异或XOR、一个移位、2个加法和几个反向逻辑实现，大大降低了误差补偿的成本，且第$i$次划分后乘法器的均方误差MSE为：
-\begin{equation}
-    MSE = \frac{1}{9\times 16^{i + 1}} \times \frac{1}{2^{23}}
-\end{equation}
-这里假设输入均匀分布。
-
-\begin{figure}[!htb]
-    \centering
-    \subfigure[提出的近似浮点数乘法器架构图]{
-    \label{AC:AM:Fig:OU_arch}
-    \begin{minipage}[t]{0.53\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figs/AC-AM-OU_arch.png}
-    \end{minipage}
-    }
-    \subfigure[不同划分等级下的误差分布图]{
-    \label{AC:AM:Fig:OU_error}
-    \begin{minipage}[t]{0.43\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figs/AC-AM-OU_error.png}
-    \end{minipage}
-    }
-\caption{论文所提出的近似浮点数乘法器架构图和不同划分等级下的误差分布}
-\label{AC:AM:OU}
-\end{figure}
-图\ref{AC:AM:OU}展示了论文提出的近似浮点数乘法器的整体结构图和不同划分等级下的误差分布，可以看到随着划分次数的增加，误差在指数级减小。
-尽管该方法是针对浮点数乘法器提出的，但经过简单的修改也可用于定点数乘法器。
-
-\subsection{自动化方法}
-
-将设计近似乘法器的问题建模成搜索问题，能够利用计算机在短时间内生成大量具有不同精度和不同性能的近似乘法器。在自动化方法中，由捷克布尔诺理工大学（Brno University of Technology）可进化硬件（Evolvable HardWare, EHW）研究小组开发的、基于笛卡尔遗传规划（Cartesian Genetic Programming, CGP）\cite{CGP_2008,CGP_2011}的遗传算法（Genetic algorithm）取得了相当出色的效果。2016年，EHW的研究人员利用CGP设计了面向人工神经网络的近似乘法器\cite{AC:AM:CGP_2016}，以精度下降小于2.80\%的代价节省了91\%的功耗。
-
-CGP起源于Miller等人于1997年开发的一种进化数字电路的表示方法\cite{CGP_1997}，在1999年第一次出现\cite{CGP_1999}，其通用形式于2000年被正式提出\cite{CGP_2000}。
-在CGP中，一个电路由一张有向无环图（Directed Acyclic Graph, DAG）进行表示，每个节点由一串整数组成，分别代表该节点从哪个节点获得数据以及节点对数据执行什么操作，输出没有被使用的节点可以被忽略。将所有的整数按照顺序排列，并在最后加上表示电路输出的节点编号便是电路对应的CGP形式。
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.8\linewidth]{figs/AC-AM-CGP.png}
-    \caption{一个具有5比特输入、2比特输出的组合逻辑门级网表及其对应的CGP表示}
-\label{AC:AM:CGP}
-\end{figure}
-图\ref{AC:AM:CGP}展示了一个具有5比特输入、2比特输出的组合逻辑门级网表及其对应的CGP表示，可以看到有4个门没有被使用。容易想到，若将一个精确乘法器的电路结构转换为CGP形式，那么改变CGP的表示形式便相当于改变了电路的功能，得到了近似乘法器。
-Mrazek等人首先把8比特精确乘法器的不同电路实现结构转换成了CGP格式，然后随机改变CGP中的一部分整数得到近似乘法器，挑选出精度、延迟和功耗都较优的电路作为新的基础电路，不断迭代，在有限的时间内得到了均匀分布下误差较小、性能较高的471个近似乘法器，和430个近似加法器一起组成了一个开源的近似算术单元库EvoApprox8b\cite{AC:AM:CGP_Evoapprox8b}。考虑到许多应用中乘法器的输入数据分布并不是均匀的，在修改遗传算法中的目标函数后，CGP也可以被用于生成面向特定分布的高质量近似乘法器\cite{AC:AM:CGP_2019}。
-如果乘法器的位宽较大，CGP等自动化方法生成的近似乘法器往往无法快速得到误差的边界，文献\cite{AC:AM:CGP_32bit}将近似等价性检查的形式化技术集成到CGP的搜索中，能够将搜索推向可快速验证的近似电路，方法通过ABC\cite{LS:ABC}工具实现，并对最大32比特位宽的乘法器进行了评估，结果显示提出的方法在几小时内生成了一组高质量的32位近似乘法器。
-
-\subsection{近似电路综合}
-
-近似电路综合（Approximate Circuit Synthesis）\cite{AC:ALS:survey}是近似逻辑综合的一个细分方向，着重于近似算术单元的生成，属于近似电路设计方法中功能近似（见\ref{approximate_computing_advance}有关功能近似的定义）的一种。
-给定一个精确电路的描述和约束（通常是误差），近似电路综合不需要知道具体的电路功能，自动化生成满足精度的电路实现，与自动化方法相比，近似电路综合可直接应用于各种算术单元，通用性更强。近似电路综合可以通过网表转换（Netlist transformation）或布尔重写（Boolean rewriting）的方式实现，
-\begin{figure}[!htb]
-    \centering
-    \subfigure[网表转换方法实现近似电路，左：精确电路的门级网表，右：生成的近似电路的门级网表]{
-    \label{AC:ALS:survey_net_trans}
-    \begin{minipage}[t]{\linewidth}
-    \centering
-    \includegraphics[width=0.8\linewidth]{figs/AC-ALS-survey_net_trans.png}
-    \end{minipage}
-    }
-    \subfigure[布尔重写方法实现近似电路，左：精确电路的真值表，右：生成的近似电路的真值表]{
-    \label{AC:ALS:survey_bool_rewr}
-    \begin{minipage}[t]{\linewidth}
-    \centering
-    \includegraphics[width=0.75\linewidth]{figs/AC-ALS-survey_bool_rewr.png}
-    \end{minipage}
-    }
-\caption{实现近似电路综合的两种常见方式}
-\label{AC:ALS:survey_ACS_two_methods}
-\end{figure}
-图\ref{AC:ALS:survey_ACS_two_methods}举例展示了两种实现方式的区别，具体来讲，网表转换方式通过移除一些逻辑节点或用导线直接替换节点来对精确电路的门级网表进行简化，以达到减小面积和降低功耗的目的，而布尔重写方式则着重于修改抽象级别更高的真值表，使对应的布尔表达式更简洁紧凑。
-
-文献\cite{AC:ALS:ALSRAC}采用网表转换的方法，利用重替换（resubstitution）算法\cite{LS:resub}不断尝试修改电路的局部结构，每次修改后用仿真的方式确定误差，直到找到满足精度要求的电路后退出。该方法被Meng等人基于ABC\cite{LS:ABC}实现并命名为ALSRAC，实验结果表明，ALSRAC产生的近似电路的面积与国际前沿工作相比减小了7\%-18\%。
-
-\section{研究动机}
+\section{数据分布和输入极性对近似乘法器精度的影响}
 
 假设一个近似乘法器在输入为$x$、$y$时输出为$f(x,y)$，由式\eqref{AC:Arith:ED}得该输入下误差距离ED的平方为：
 \begin{equation}
@@ -194,7 +20,7 @@ Mrazek等人首先把8比特精确乘法器的不同电路实现结构转换成�
 \end{align}
 式中 $x_i \in \{x_0, x_1, \cdots , x_{N-1}\}$， $y_j \in \{y_0, y_1, \cdots , y_{M-1}\}$，常数$N$和$M$分别是$x$和$y$的所有可能输入情况的总数，式\eqref{AC:AM:Adapt:Eq:pxy}代表交换乘法器输入带来的影响。
 
-\subsection{输入分布对近似乘法器精度的影响}
+\subsection{数据分布的影响}
 
 \begin{figure}[!htb]
     \centering
@@ -245,7 +71,7 @@ Mrazek等人首先把8比特精确乘法器的不同电路实现结构转换成�
 
 近似乘法器$f^{(1)}$和$f^{(2)}$的误差分布如图\ref{AC:AM:Adapt:Fig:f1_f2_ED2_dists}所示，这里的误差是由式\eqref{AC:AM:Adapt:Eq:ED2}计算得到的，可以看到$f^{(2)}$在$x=0$、$y=128$附近的误差比$f^{(1)}$小。把FC1中的精确乘法分别全部替换为$f^{(1)}$和$f^{(2)}$，重新对LeNet进行训练，并把每一次乘法产生的误差（误差距离ED的平方）相加，得到$f^{(1)}$的总误差为$3.12 \times 10^{16}$，$f^{(2)}$的总误差为$4.77 \times 10^{14}$，比$f^{(1)}$小两个数量级，这充分说明了在设计近似乘法器时考虑真实数据分布的重要性。
 
-\subsection{输入极性对近似乘法器精度的影响}
+\subsection{输入极性的影响}
 
 近似乘法器通常是不对称的，这意味着交换输入前后乘法器的输出结果不一致。为了展示输入极性对近似乘法器精度的影响，对基于CGP方法开发的包含500个帕累拖最优（Pareto optimality）的近似乘法器库Evoapprox8b\cite{AC:AM:CGP_Evoapprox8b}进行了研究，过程如下：
 
@@ -270,18 +96,18 @@ Mrazek等人首先把8比特精确乘法器的不同电路实现结构转换成�
 \end{figure}
 结果表明超过250个点的$D$大于2.8，这意味着Evoapprox8b\cite{AC:AM:CGP_Evoapprox8b}中超过一半的乘法器的精度在交换输入前后至少相差2.8\%。值得注意的是所有乘法器的精度评估均基于网络规模较小的LeNet，当网络规模上升后，考虑到误差的累计，由近似乘法器的不对称性引起的精度下降会更加严重，这充分说明了在设计近似乘法器时考虑输入极性的重要性。
 
-\section{研究内容与创新点}
+% \section{研究内容与创新点}
 
-本文提出了一种新的自动化近似乘法器生成方法，受文献\cite{AC:AM:SDLC}的启发，该方法通过逻辑操作和移位操作在部分积生成后、累加前对部分积进行了一次压缩，降低部分积阵列的规模，减轻后续的累加压力。同时，与文献\cite{AC:AM:SDLC}只采用或操作不同，本文提出的方法同时利用与、或、异或和移位操作对部分积进行压缩，降低乘法器的误差。最后，该方法将设计近似乘法器的问题建模成数学问题，利用计算机自动寻找在给定输入分布下的最优压缩操作，同时考虑输入极性，主要创新点如下：
-\begin{itemize}
-    \item 为了方便测试不同近似乘法器在不同规模神经网络上的性能，本文提出并开源了一个基于8比特无符号数量化的DNN推断（Inference）精度评估工具，该工具将一个近似乘法器表示为一个查找表并对网络中的精确乘法进行替换，支持LeNet\cite{DNN:LeNet_MNIST}、AlexNet\cite{DNN:AlexNet}、VGG16\cite{DNN:VGG16}三个不同规模的神经网络和MNIST\cite{DNN:LeNet_MNIST}、CIFAR-10\cite{DNN:CIFAR-10}两个数据集。
-    \item 提出的设计方法可以生成任意分布下的无符号乘法器，针对8比特位宽的三个不同规模的神经网络的实验结果表明，与国际前沿工作相比，生成的近似乘法器在几乎没有精度损失的情况下，功耗延迟面积积（Product of Power, Delay, and Area，缩写作PDA）提升了26.4\%。同时，针对大规模神经网络设计的近似乘法器在面对小规模神经网络时表现出了一定的可迁移性。
-    \item 利用改进的Baugh-Wooley算法\cite{EM:baugh-wooley,EM:baugh-wooley_modified_PP_reorga,EM:baugh-wooley_diff}（见\ref{改进的Baugh-Wooley算法}），方法能够生成补码有符号乘法器，基于16比特位宽的有限冲击响应（Finite Impulse Response, FIR）滤波器的实验结果表明，与国际前沿工作相比，生成的近似乘法器在几乎没有任何精度损失的情况下，PDA优化了27.1\%。
-\end{itemize}
+% 本文提出了一种新的自动化近似乘法器生成方法，受文献\cite{AC:AM:SDLC}的启发，该方法通过逻辑操作和移位操作在部分积生成后、累加前对部分积进行了一次压缩，降低部分积阵列的规模，减轻后续的累加压力。同时，与文献\cite{AC:AM:SDLC}只采用或操作不同，本文提出的方法同时利用与、或、异或和移位操作对部分积进行压缩，降低乘法器的误差。最后，该方法将设计近似乘法器的问题建模成数学问题，利用计算机自动寻找在给定输入分布下的最优压缩操作，同时考虑输入极性，主要创新点如下：
+% \begin{itemize}
+%     \item 为了方便测试不同近似乘法器在不同规模神经网络上的性能，本文提出并开源了一个基于8比特无符号数量化的DNN推断（Inference）精度评估工具，该工具将一个近似乘法器表示为一个查找表并对网络中的精确乘法进行替换，支持LeNet\cite{DNN:LeNet_MNIST}、AlexNet\cite{DNN:AlexNet}、VGG16\cite{DNN:VGG16}三个不同规模的神经网络和MNIST\cite{DNN:LeNet_MNIST}、CIFAR-10\cite{DNN:CIFAR-10}两个数据集。
+%     \item 提出的设计方法可以生成任意分布下的无符号乘法器，针对8比特位宽的三个不同规模的神经网络的实验结果表明，与国际前沿工作相比，生成的近似乘法器在几乎没有精度损失的情况下，功耗延迟面积积（Product of Power, Delay, and Area，缩写作PDA）提升了26.4\%。同时，针对大规模神经网络设计的近似乘法器在面对小规模神经网络时表现出了一定的可迁移性。
+%     \item 利用改进的Baugh-Wooley算法\cite{EM:baugh-wooley,EM:baugh-wooley_modified_PP_reorga,EM:baugh-wooley_diff}（见\ref{改进的Baugh-Wooley算法}），方法能够生成补码有符号乘法器，基于16比特位宽的有限冲击响应（Finite Impulse Response, FIR）滤波器的实验结果表明，与国际前沿工作相比，生成的近似乘法器在几乎没有任何精度损失的情况下，PDA优化了27.1\%。
+% \end{itemize}
 
-\section{研究方法}
+\section{同时考虑分布和极性的设计方法}
 
-受相关工作\cite{AC:AM:SDLC,AC:AM:OU,AC:AM:CGP_2016}的启发，对乘法器的部分积在生成后、累加前同时利用多种操作对其进行压缩，降低部分积阵列的规模，减轻后续的累加压力，并把寻找最优压缩操作的问题建模成数学问题，利用计算机进行求解。
+受相关工作\cite{AC:AM:SDLC,AC:AM:OU,AC:AM:CGP_2016}的启发，对乘法器的部分积在生成后、累加前同时利用多种操作对其进行压缩，降低部分积阵列的规模，减轻后续的累加压力。与文献\cite{AC:AM:SDLC}只采用或操作不同，本文提出的方法同时利用与、或、异或和移位操作对部分积进行压缩，降低乘法器的误差。最后，把寻找最优压缩操作的问题建模成数学问题，利用计算机自动寻找在给定输入分布下的最优压缩操作，同时考虑输入极性。
 
 \subsection{无符号乘法器}
 \begin{figure}[ht]
