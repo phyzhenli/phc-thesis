@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-06-16T07:45:48.678Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="c3JYOA-M590xx4TaWQSC" version="23.1.5" type="device" pages="10">
+<mxfile host="Electron" modified="2024-06-17T09:03:26.351Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="EY-qCaVpBkW2hY_ssOwZ" version="23.1.5" type="device" pages="10">
   <diagram name="符号位扩展" id="j2Sb2SQF4ceCkySm1akx">
     <mxGraphModel dx="1221" dy="726" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
       <root>
@@ -1397,14 +1397,14 @@
     </mxGraphModel>
   </diagram>
   <diagram id="bjHvgxtTlrFjnokYnTYQ" name="论文结构">
-    <mxGraphModel dx="555" dy="330" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
+    <mxGraphModel dx="4070" dy="2420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="2gZxY54aenbxQ-3aoqor-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#FF0000;strokeWidth=20;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2gZxY54aenbxQ-3aoqor-10" target="2gZxY54aenbxQ-3aoqor-15" edge="1">
+        <mxCell id="2gZxY54aenbxQ-3aoqor-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;strokeWidth=20;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1198" y="1640" as="sourcePoint" />
-            <mxPoint x="1198" y="1750" as="targetPoint" />
+            <mxPoint x="1185" y="1719" as="sourcePoint" />
+            <mxPoint x="1185" y="1849" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="2gZxY54aenbxQ-3aoqor-10" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;strokeWidth=8;" parent="1" vertex="1">
@@ -1428,7 +1428,7 @@
         <mxCell id="2gZxY54aenbxQ-3aoqor-6" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;第5章 逻辑优化框架&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 45px;&quot;&gt;&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;面向大电路的强化学习方法&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="2570" y="90" width="670" height="290" as="geometry" />
         </mxCell>
-        <mxCell id="2gZxY54aenbxQ-3aoqor-7" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;&lt;br&gt;第5章 近似逻辑综合研究&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 45px;&quot;&gt;&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;面向大规模电路的基于 MFFC 自适应超图划分的端到端强化学习逻辑优化序列探索框架&lt;br&gt;&lt;/li&gt;&lt;li style=&quot;font-size: 45px; border-color: var(--border-color);&quot;&gt;结合探索框架与得到的近似乘法器库，对基于不同近似乘法器的DNN硬件加速器进行探究&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="2gZxY54aenbxQ-3aoqor-7" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;&lt;br&gt;第5章 近似逻辑综合研究&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 45px;&quot;&gt;&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;面向大规模电路的基于 MFFC 自适应超图划分的端到端强化学习逻辑优化序列探索框架&lt;br&gt;&lt;/li&gt;&lt;li style=&quot;font-size: 45px; border-color: var(--border-color);&quot;&gt;结合探索框架与得到的近似乘法器库，研究基于不同近似乘法器的DNN硬件加速器&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="1355" width="2190" height="310" as="geometry" />
         </mxCell>
         <mxCell id="2gZxY54aenbxQ-3aoqor-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#FF0000;strokeWidth=20;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2gZxY54aenbxQ-3aoqor-3" target="2gZxY54aenbxQ-3aoqor-10" edge="1">

@@ -1,16 +1,15 @@
-\chapter{面向大规模电路的强化学习逻辑优化框架}
+\chapter{基于乘法器库和强化学习序列探索的近似逻辑综合研究}
 
+\section{面向大规模电路的强化学习逻辑优化框架}
 
-
-
-\section{已有的序列优化方法存在的问题}
+\subsection{现有序列优化方法存在的问题}
 
 目前已有的序列优化方法\cite{LS:BOiLS,LS:DRiLLS}在针对大规模电路进行探索时迭代速度慢，无法在有限地时间内得到高质量的输出结果，尽管有工作\cite{LS:Bulls-Eye}在基于图神经网络训练一个预测器后利用主动学习的方法能够在较短时间内应用到大网络上，但预测质量往往不如直接探索的方法，同时预测器的搜索空间是预先固定的，无法进行灵活调整。另外，已有的方法都是直接将一个优化序列应用于整个网络，考虑到电路的算术逻辑部分和控制逻辑部分有不同的特性\cite{LS:MIG}，网络的不同部分可能适用于不同的序列。
 
 文献\cite{LS:LSOracle}利用超图划分的方法对布尔网络进行分割，并对划分后的子网络选择合适的DAG进行优化，但由于划分后每个子网络的输入信号的到达时间可能不为0，这导致对子网络进行优化时的关键路径可能并不是真实的关键路径，同时超图划分的目标只是最小化割边权重和或子图连通性，并没有考虑节点处于不同子图会带来不同优化效果的影响，且不同DAG的优化引擎质量不一致，这些原因加起来导致合并后的网表经过评估后优势不大。因此需要针对大规模网络提出一个基于高质量划分的序列探索方法,既能充分利用现代CPU架构的多核特性提高探索效率，又能保证合并后优化质量的提升。
 
 
-\section{基于MFFC自适应超图划分的端到端强化学习逻辑优化框架}
+\subsection{基于MFFC自适应超图划分的端到端强化学习逻辑优化框架}
 
 \begin{figure}[!htbp]
     \centering
@@ -41,7 +40,7 @@ MFFC超图形成后，对其采用开源的超图划分工具\cite{KaHyPar}进�
 
 DRiLLS\cite{LS:DRiLLS}在序列探索过程中每次运行一个优化命令都需要保存一个中间文件，效率较低。本文提出并开源了一个新的强化学习逻辑综合方法，该方法基于OpenAI Gym\cite{AI:gym}和Stable Baselines3\cite{AI:stable-baselines3}实现，支持ABC\cite{LS:ABC}、Cirkit\cite{LS:cirkit}、iMAP\cite{LS:iMAP}三个学术界主流的逻辑综合工具，能够完成以逻辑优化、LUT映射、ASIC映射为目标的序列探索任务。
 
-\section{实验结果}
+\subsection{实验结果}
 
 对来自OPDB\cite{LS:OPDB}、VTR\cite{FPGA:vtr8}、Koios\cite{FPGA:Koios}、EPFL\cite{LS:EPFL_benchs_iwls,LS:EPFL_benchs_github}、IWLS05\cite{LS:iwls05}、QUIP\cite{LS:quip}等超过150个不同规模的电路进行广泛测试，对提取的组合逻辑网表分别用ABC resyn2、BOiLS\cite{LS:BOiLS}、DRiLLS\cite{LS:DRiLLS}、LSOracle\cite{LS:LSOracle}、以及本文提出的方法在Intel Xeon处理器上利用200个CPU核进行优化，其中BOiLS和DRiLLS使用单线程运行，运行时间由下式确定：
 \begin{equation}
@@ -106,47 +105,43 @@ BOiLS和DRiLLS的结果是在没有划分的情况下直接对整个组合逻辑
 考虑到数据是基于大量的用例通过商业综合工具评估得到的，因此实验结果能够代表真实的应用场景，每个电路具体的面积和延迟数据见附录\ref{所有电路在不同优化方法下的面积和延迟}。
 
 
-% \section{基于近似乘法器库面向DNN加速器的近似逻辑综合}
+\section{结合优化框架和近似乘法器库的近似逻辑综合研究}
 
-% \subsection{研究背景}
+\subsection{将近似乘法器直接应用于大型设计存在的问题}
 
-% 即使设计的近似乘法器在经过评估后硬件开销较低，但基于该乘法器设计的DNN加速器可能硬件成本并不领先。例如，在图\ref{AC:AM:Adapt:Fig:LeNet_PDA_accuracy}中，PPAM(1,1)的PDA比XFYW和XWYF都要高，但在如图\ref{AC:AM:Adapt:Fig:Acc_TASU}所示的基于不同乘法器的TASU加速器的\cite{Accelerator:JiaoLi}硬件开销比较中，基于PPAM(1,1)的设计比基于乘法器\emph{`A'}、\emph{`B'}、\emph{`C'}的PDA都要低，这是因为当近似乘法器作为一个模块放在电路中时，EDA工具能够根据不同的电路执行不同的优化，因此有必要对基于不同近似乘法器的DNN加速器的硬件成本进行探究。
+即使设计的近似乘法器在经过评估后硬件开销较低，但基于该乘法器设计的DNN加速器可能硬件成本并不领先。例如，在图\ref{AC:AM:Adapt:Fig:LeNet_PDA_accuracy}中，PPAM(1,1)的PDA比XFYW和XWYF都要高，但在如图\ref{AC:AM:Adapt:Fig:Acc_TASU}所示的基于不同乘法器的TASU加速器的\cite{Accelerator:JiaoLi}硬件开销比较中，基于PPAM(1,1)的设计比基于乘法器\emph{`A'}、\emph{`B'}、\emph{`C'}的PDA都要低，这是因为当近似乘法器作为一个模块放在电路中时，EDA工具能够根据不同的电路执行不同的优化，因此有必要对基于不同近似乘法器的DNN加速器的硬件成本进行探究。
 
-% \subsection{研究内容}
+\subsection{基于不同近似乘法器的DNN硬件加速器研究}
 
-% \subsubsection{研究方法}
-
-% 将提出的基于MFFC自适应超图划分的端到端强化学习逻辑优化框架与近似乘法器库结合，针对DNN硬件加速器，本文首先对图\ref{AC:AM:Adapt:Fig:LeNet_PDA_accuracy}中共68个XWYF近似乘法器利用DC在7nm工艺库\cite{ASAP7_github}上基于2GHz的时钟频率约束进行综合以获取PDA，找到位于帕累拖前沿的乘法器；之后对基于不同乘法器的68个卷积操作加速单元SC\cite{Accelerator:SC}利用提出的开源逻辑优化框架进行优化，获取ADP并比较结果。
+将提出的基于MFFC自适应超图划分的端到端强化学习逻辑优化框架与近似乘法器库结合，针对DNN硬件加速器，本文首先对图\ref{AC:AM:Adapt:Fig:LeNet_PDA_accuracy}中共68个XWYF近似乘法器利用DC在7nm工艺库\cite{ASAP7_github}上基于2GHz的时钟频率约束进行综合以获取PDA，找到位于帕累拖前沿的乘法器；之后对基于不同乘法器的68个卷积操作加速单元SC\cite{Accelerator:SC}利用提出的逻辑优化框架进行优化，获取ADP并比较结果。
 
 
-% \subsubsection{实验结果}
+\subsection{实验结果}
 
-% \begin{figure}[!htb]
-%     \centering
-%     \subfigure[XWYF乘法器的评估结果]{
-%     \label{AC:ALS:Fig:LeNet_XWYF}
-%     \begin{minipage}[t]{0.48\linewidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{figs/LeNet_XWYF_PDA.pdf}
-%     \end{minipage}
-%     }
-%     \subfigure[基于XWYF实现的卷积加速器的评估结果]{
-%     \label{AC:ALS:Fig:SC}
-%     \begin{minipage}[t]{0.48\linewidth}
-%     \centering
-%     \includegraphics[width=\linewidth]{figs/SC_LeNet_XWYF_ADP.pdf}
-%     \end{minipage}
-%     }
-% \caption{XWYF乘法器的评估结果以及基于XWYF实现的卷积加速器的评估结果}
-% \label{AC:ALS:Fig:SC_LeNet_XWYF}
-% \end{figure}
+\begin{figure}[!htb]
+    \centering
+    \subfigure[XWYF乘法器的评估结果]{
+    \label{AC:ALS:Fig:LeNet_XWYF}
+    \begin{minipage}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figs/LeNet_XWYF_PDA.pdf}
+    \end{minipage}
+    }
+    \subfigure[基于XWYF实现的卷积加速器的评估结果]{
+    \label{AC:ALS:Fig:SC}
+    \begin{minipage}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figs/SC_LeNet_XWYF_ADP.pdf}
+    \end{minipage}
+    }
+\caption{XWYF乘法器的评估结果以及基于XWYF实现的卷积加速器的评估结果}
+\label{AC:ALS:Fig:SC_LeNet_XWYF}
+\end{figure}
 
-% 图\ref{AC:ALS:Fig:SC_LeNet_XWYF}展示了68个XWYF乘法器的评估结果以及基于XWYF实现的68个卷积加速器SC\cite{Accelerator:SC}的评估结果，作为对比，基于DesignWare库\cite{IP:DesignWare}实现的精确乘法器DesignW也被纳入比较。图\ref{AC:ALS:Fig:LeNet_XWYF}中共有3个乘法器位于帕累拖前沿，以黄色三角形表示，对应的SC实现在图\ref{AC:ALS:Fig:SC}中也以黄色三角形表示。一个有意思的现象是，虽然DesignW的单独评估结果显示其PDA较高，但基于DesignW实现的SC模块的硬件开销却优于相当一部分的XWYF乘法器，这说明了近似乘法器库在使用时不能简单地根据单独的硬件成本直接选择，而是应该进行多次尝试后决定。
-% 图\ref{AC:ALS:Fig:SC}表明，基于3个帕累拖最优的乘法器的SC实现仍然位于帕累拖前沿，因此当给定一个近似乘法器库进行综合时，可对库中位于帕累拖前沿的乘法器进行一定次数的随机搜索，综合比较后选择最好的那个进行实现。
+图\ref{AC:ALS:Fig:SC_LeNet_XWYF}展示了68个XWYF乘法器的评估结果以及基于XWYF实现的68个卷积加速器SC\cite{Accelerator:SC}的评估结果，作为对比，基于DesignWare库\cite{IP:DesignWare}实现的精确乘法器DesignW也被纳入比较。图\ref{AC:ALS:Fig:LeNet_XWYF}中共有3个乘法器位于帕累拖前沿，以黄色三角形表示，对应的SC实现在图\ref{AC:ALS:Fig:SC}中也以黄色三角形表示。一个有意思的现象是，虽然DesignW的单独评估结果显示其PDA较高，但基于DesignW实现的SC模块的硬件开销却优于相当一部分的XWYF乘法器，这说明了近似乘法器库在使用时不能简单地根据单独的硬件成本直接选择，而是应该进行多次尝试后决定。
+图\ref{AC:ALS:Fig:SC}表明，基于3个帕累拖最优的乘法器的SC实现仍然位于帕累拖前沿，因此当给定一个近似乘法器库进行综合时，可对库中位于帕累拖前沿的乘法器进行一定次数的随机搜索，综合比较后选择最好的那个进行实现。
 
 \section{本章小结}
 
 本章介绍了基于MFFC自适应超图划分的端到端强化学习逻辑优化框架，该框架基于Yosys和ABC实现，首先利用Yosys对电路进行读入和解析，接着将电路中的组合逻辑提取出来并划分，划分完成后采用强化学习方法对所有的子电路并行地进行序列寻优，最后通过商业综合工具进行评估。基于超过150个电路的实验结果显示，与ABC的脚本resyn2相比，面积延迟积平均提高了5.17\%。
-
-
-% 之后将框架与近似乘法器库结合，对基于不同近似乘法器的DNN硬件加速器进行研究，结果显示乘法器和加速器之间的性能收益存在不匹配的现象，即乘法器本身的硬件开销低，基于该乘法器实现的加速器的硬件开销不一定低，因此近似乘法器库在使用时不能简单地根据乘法器的单独硬件成本直接选择，而是应该进行多次尝试后决定。
+之后将框架与近似乘法器库结合，对基于不同近似乘法器的DNN硬件加速器进行研究，结果显示乘法器和加速器之间的性能收益存在不匹配的现象，即乘法器本身的硬件开销低，基于该乘法器实现的加速器的硬件开销不一定低，因此近似乘法器库在使用时不能简单地根据乘法器的单独硬件成本直接选择，而是应该进行多次尝试后决定。

@@ -768,11 +768,11 @@ ED和RED是衡量近似电路在某输入下误差的两个重要指标。
 
 以上提到的近似电路的误差指标均适用于近似乘法器。
 
-\section{近似乘法器}
+\section{基于功能近似的近似乘法器相关工作}
 
 从电路实现的底层结构上将，基于功能近似\cite{AC:ALS:survey}实现的近似乘法器设计方法可分为面向ASIC和FPGA两类，下面分别进行介绍。
 
-\subsection{ASIC近似乘法器}
+\subsection{4类现有的ASIC近似乘法器设计方法}
 
 （1）手工设计（Manual design）
 
@@ -851,11 +851,11 @@ $x^{\prime}_{App}$、$x^{\prime}_T$（或$y^{\prime}_{App}$、$y^{\prime}_T$）�
     xy \approx z_{approx} = k_{0}+k_{1}x+k_{2}y
 \label{AC:AM:OU_AM}
 \end{equation}
-该近似乘法器在基空间$\{1, x, y, x^2, y^2\}$上误差距离ED的平方最小，且有以下几个性质：（1）对式\eqref{AC:AM:OU_AM}来说，当$\{x,y\}$取$\{x_1,y_1\}$、$\{x_1,y_2\}$、$\{x_2,y_1\}$、$\{x_2,y_2\}$时该近似乘法器的误差最大；（2）所得到的近似乘法器是无偏的，即平均误差为0：
+该近似乘法器在基空间$\{1, x, y, x^2, y^2\}$上误差距离ED的平方最小，且有以下几个性质：（a）对式\eqref{AC:AM:OU_AM}来说，当$\{x,y\}$取$\{x_1,y_1\}$、$\{x_1,y_2\}$、$\{x_2,y_1\}$、$\{x_2,y_2\}$时该近似乘法器的误差最大；（b）所得到的近似乘法器是无偏的，即平均误差为0：
 \begin{equation} 
     \int\nolimits_{x_{1}}^{x_{2}}\int\nolimits_{y_{1}}^{y_{2}} ( \ k_{0}+k_{1}x+k_{2}y - xy \ ) \ dxdy = 0
 \end{equation}
-（3）若对精确乘法按照此论文提出的方法进行分段线性近似，即将输入范围$[x_1,x_2] \times [x_1,x_2]$划分为若干个子区域，在每个子区域内也将乘法转换成如式\eqref{AC:AM:OU_AM}所示的线性操作，则每个子区域面积相等时整个乘法器的误差距离ED的平方最小，且最小为：
+（c）若对精确乘法按照此论文提出的方法进行分段线性近似，即将输入范围$[x_1,x_2] \times [x_1,x_2]$划分为若干个子区域，在每个子区域内也将乘法转换成如式\eqref{AC:AM:OU_AM}所示的线性操作，则每个子区域面积相等时整个乘法器的误差距离ED的平方最小，且最小为：
 \begin{equation}
     ED^2_\text{min} = \dfrac{ (x_2 - x_1)^3 (y_2 - y_1)^3 }{144 n^2}
 \end{equation}
@@ -941,7 +941,7 @@ Mrazek等人首先把8比特精确乘法器的不同电路实现结构转换成�
 文献\cite{AC:ALS:ALSRAC}采用网表转换的方法，利用重替换（resubstitution）算法\cite{LS:resub}不断尝试修改电路的局部结构，每次修改后用仿真的方式确定误差，直到找到满足精度要求的电路后退出。该方法被Meng等人基于ABC\cite{LS:ABC}实现并命名为ALSRAC，实验结果表明，ALSRAC产生的近似电路的面积与国际前沿工作相比减小了7\%-18\%。
 
 
-\subsection{FPGA近似乘法器}
+\subsection{基于查找表编码的FPGA近似乘法器}
 
 在介绍有关FPGA近似乘法器的工作之前，对FPGA的结构及乘法实现原理做一个介绍是必要的。
 在FPGA中，算术操作通常由DSP模块实现，但DSP电路的面积只占整个FPGA芯片的5\%，且位置固定\cite{FPGA:DSP}，这意味着某些需要大量乘法的应用比如DNN无法在FPGA上被有效的映射\cite{FPGA:Math}。相对应的，FPGA中存在着丰富的查找表单元，能够和布线资源一起实现复杂的函数功能，某些充分考虑LUT特性的设计能够在FPGA上实现相当高的性能\cite{FPGA:PolyLUT}。
@@ -974,7 +974,7 @@ LUT通常由多路选择器MUX和SRAM构成，其大小可根据输入个数的�
 
 
 
-\section{逻辑综合}
+\section{逻辑综合介绍}
 
 
 \subsection{Yosys和ABC}
