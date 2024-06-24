@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-06-17T09:03:35.189Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="_CStEZQNCxPq6GoZUGbZ" version="23.1.5" type="device" pages="10">
+<mxfile host="Electron" modified="2024-06-24T03:48:42.307Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="KDsPN2qEXMnYttG8cvBj" version="23.1.5" type="device" pages="10">
   <diagram name="符号位扩展" id="j2Sb2SQF4ceCkySm1akx">
     <mxGraphModel dx="1221" dy="726" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
       <root>
@@ -1397,7 +1397,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="bjHvgxtTlrFjnokYnTYQ" name="论文结构">
-    <mxGraphModel dx="4070" dy="2420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
+    <mxGraphModel dx="3053" dy="1815" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1416,7 +1416,7 @@
         <mxCell id="2gZxY54aenbxQ-3aoqor-2" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;第1章 绪论&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 45px;&quot;&gt;背景：计算机体系架构的演变和半导体工艺的发展跟不上庞大的算力需求&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="340" width="2190" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="2gZxY54aenbxQ-3aoqor-3" value="&lt;b&gt;&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 55px;&quot;&gt;第2章 &lt;/span&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 55px;&quot;&gt;基于乘法器库的近似逻辑综合技术基础&lt;/span&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="2gZxY54aenbxQ-3aoqor-3" value="&lt;b&gt;&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 55px;&quot;&gt;第2章 &lt;/span&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 55px;&quot;&gt;乘法器与逻辑综合技术基础&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="660" width="2190" height="130" as="geometry" />
         </mxCell>
         <mxCell id="2gZxY54aenbxQ-3aoqor-4" value="&lt;p style=&quot;line-height: 120%;&quot;&gt;&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;第3章 ASIC近似乘法器&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;&lt;div style=&quot;font-size: 45px; line-height: 120%;&quot;&gt;&lt;ul style=&quot;line-height: 120%;&quot;&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;同时考虑数据分布和输入极性的自动化方法&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -1428,7 +1428,7 @@
         <mxCell id="2gZxY54aenbxQ-3aoqor-6" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;第5章 逻辑优化框架&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 45px;&quot;&gt;&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;面向大电路的强化学习方法&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="2570" y="90" width="670" height="290" as="geometry" />
         </mxCell>
-        <mxCell id="2gZxY54aenbxQ-3aoqor-7" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;&lt;br&gt;第5章 近似逻辑综合研究&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 45px;&quot;&gt;&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;面向大电路的基于 MFFC 自适应超图划分的端到端强化学习逻辑优化序列探索框架&lt;br&gt;&lt;/li&gt;&lt;li style=&quot;font-size: 45px; border-color: var(--border-color);&quot;&gt;结合探索框架与得到的近似乘法器库，研究基于不同近似乘法器的DNN硬件加速器&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="2gZxY54aenbxQ-3aoqor-7" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;&lt;br&gt;第5章 基于乘法器库和强化学习方法的近似逻辑综合研究&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 45px;&quot;&gt;&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;面向大电路的基于 MFFC 自适应超图划分的端到端强化学习逻辑优化序列探索框架&lt;br&gt;&lt;/li&gt;&lt;li style=&quot;font-size: 45px; border-color: var(--border-color);&quot;&gt;结合探索框架与得到的近似乘法器库，研究基于不同近似乘法器的DNN硬件加速器&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="1355" width="2190" height="310" as="geometry" />
         </mxCell>
         <mxCell id="2gZxY54aenbxQ-3aoqor-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#FF0000;strokeWidth=20;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2gZxY54aenbxQ-3aoqor-3" target="2gZxY54aenbxQ-3aoqor-10" edge="1">
@@ -1446,7 +1446,7 @@
         <mxCell id="2gZxY54aenbxQ-3aoqor-15" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 55px;&quot;&gt;第6章 &lt;/b&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 55px;&quot;&gt;&lt;b&gt;总结与展望&lt;/b&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="1850" width="2190" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="63Hq0K7mTd9oCHPD7hVB-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;strokeWidth=20;entryX=0.758;entryY=0.001;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="2gZxY54aenbxQ-3aoqor-5" target="2gZxY54aenbxQ-3aoqor-7">
+        <mxCell id="63Hq0K7mTd9oCHPD7hVB-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;strokeWidth=20;entryX=0.758;entryY=0.001;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="2gZxY54aenbxQ-3aoqor-5" target="2gZxY54aenbxQ-3aoqor-7" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1881" y="1245" as="sourcePoint" />
             <mxPoint x="1880" y="1352" as="targetPoint" />

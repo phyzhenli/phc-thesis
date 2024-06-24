@@ -1087,7 +1087,7 @@ ABC能够利用AIG对布尔网络进行有效地表示和变换，但在电路�
 \end{itemize}
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.6\linewidth]{./figs/LS-MFFC.png}
+    \includegraphics[width=0.5\linewidth]{./figs/LS-MFFC.png}
     \caption{不同节点的最大无扇出锥}
     \label{LS:MFFC}
 \end{figure}
@@ -1177,7 +1177,14 @@ ABC能够利用AIG对布尔网络进行有效地表示和变换，但在电路�
     \label{LS:BOiLS:Fig:results}
 \end{figure}
 
-基于EPFL电路集\cite{LS:EPFL_benchs_iwls,LS:EPFL_benchs_github}，BOiLS与6个前沿工作进行了对比，包括：基于强化学习方法的DRiLLS\cite{LS:DRiLLS}，标准贝叶斯优化（Standard Bayesian Optimization, SBO），遗传算法（Genetic Algorithm, GA），随机搜索（Random Search, RS），以及已有的最佳记录。每种方法限制的迭代次数为200，图\ref{LS:BOiLS:Fig:results}展示了不同方法的实验结果。可以看到，BOiLS在8/10个电路中都取得了最优结果，SBO在log2电路中效果最好，BOiLS紧随其后，显示了贝叶斯优化在逻辑综合序列探索中的巨大潜力。另外有趣的一点是，结果显示，基于强化学习的序列搜索方法DRiLLS看起来似乎并没有比随机搜索强多少。
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=\linewidth]{./figs/LS-BOiLS-results_2.png}
+    \caption{不同方法在4个电路上的探索效率对比}
+    \label{LS:BOiLS:Fig:results_2}
+\end{figure}
+
+基于EPFL电路集\cite{LS:EPFL_benchs_iwls,LS:EPFL_benchs_github}，BOiLS与6个前沿工作进行了对比，包括：基于强化学习方法的DRiLLS\cite{LS:DRiLLS}，标准贝叶斯优化（Standard Bayesian Optimization, SBO），遗传算法（Genetic Algorithm, GA），随机搜索（Random Search, RS），以及已有的最佳记录。每种方法限制的迭代次数为200，图\ref{LS:BOiLS:Fig:results}展示了不同方法的实验结果。可以看到，BOiLS在8/10个电路中都取得了最优结果，SBO在log2电路中效果最好，BOiLS紧随其后，显示了贝叶斯优化在逻辑综合序列探索中的巨大潜力。图\ref{LS:BOiLS:Fig:results_2}比较了不同优化方法在4个电路上的探索效率，结果显示，基于强化学习的序列搜索方法DRiLLS看起来似乎并没有比随机搜索强多少。
 
 （3）基于图神经网络的方法
 
