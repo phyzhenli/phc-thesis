@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-06-26T02:49:45.103Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="zwmAMqwTy8yqkxxcDAND" version="23.1.5" type="device" pages="10">
+<mxfile host="Electron" modified="2024-06-26T02:55:51.637Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="CQz_wbITVmpZjOb-RoNu" version="23.1.5" type="device" pages="10">
   <diagram name="符号位扩展" id="j2Sb2SQF4ceCkySm1akx">
     <mxGraphModel dx="1221" dy="726" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
       <root>
@@ -1397,7 +1397,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="bjHvgxtTlrFjnokYnTYQ" name="论文结构">
-    <mxGraphModel dx="2713" dy="1613" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
+    <mxGraphModel dx="4070" dy="2420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="2400" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1449,14 +1449,14 @@
             <mxPoint x="1880" y="1352" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LYXqNsZU8WzS59T6RMZ7-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;strokeWidth=20;" edge="1" parent="1">
+        <mxCell id="LYXqNsZU8WzS59T6RMZ7-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;strokeWidth=20;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="750" y="1130.0000000000005" as="sourcePoint" />
             <mxPoint x="1620" y="1130.0000000000005" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LYXqNsZU8WzS59T6RMZ7-3" value="&lt;font style=&quot;font-size: 45px;&quot;&gt;ASIC近似乘法器无法在FPGA上获得相同比例的硬件性能提升&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="850" y="958" width="670" height="180" as="geometry" />
+        <mxCell id="LYXqNsZU8WzS59T6RMZ7-3" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 48px;&quot;&gt;ASIC近似乘法器无法在FPGA上获得相同比例的硬件性能提升&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="830" y="955" width="710" height="180" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
