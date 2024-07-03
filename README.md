@@ -46,7 +46,7 @@ master分支：开源， reviewerC分支：盲审及终稿。
 
 #### Reference
 
-https://yzsfwapp.fudan.edu.cn/gsapp/sys/dbgsglappfudan/*default/index.do#/dbgs
+[答辩公示管理应用](https://yzsfwapp.fudan.edu.cn/gsapp/sys/dbgsglappfudan/*default/index.do#/dbgs)
 
 <!--- 邹鹏 王婧琦 -->
 
