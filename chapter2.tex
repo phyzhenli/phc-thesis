@@ -422,7 +422,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 华莱士树（Wallace tree）加法器\cite{EM:Wallace}是由澳大利亚计算机科学家克里斯·华莱士（Christopher Stewart Wallace）于1964年设计的，被广泛用于乘法器中部分积的高效快速累加。其基本步骤如下：（a）假设所有部分积都是同时生成的，第一步是将部分积每3个分为一组（不足3个保持），并将每组部分积的个数通过全加器和半加器压缩为2个；（b）重复对部分积进行分组并压缩，直到只剩下两个部分积；（c）相加最后两个部分积得到最终结果。
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=0.85\textwidth]{figs/EM-wallace.pdf}
+    \includegraphics[width=0.6\textwidth]{figs/EM-wallace.pdf}
     \caption{利用华莱士树加法器对$8 \times 8$无符号数乘法部分积进行累加的示意图}
     \label{EM:Fig:wallace}
 \end{figure}
@@ -445,7 +445,7 @@ $y_{i+1}$ & $y_i$ & $y_{i-1}$ & $-2 y_{i+1} + y_i + y_{i-1}$ & \text{部分积�
 图\ref{EM:Fig:dadda}展示了一个运用达达树对$8 \times 8$无符号数乘法生成的部分积进行压缩的过程示意图，该树的深度与图\ref{EM:Fig:wallace}中的华莱士树的深度相同，但使用了更少的全加器和半加器：达达树使用了35个全加器、7个半加器，华莱士树使用了38个全加器、15个半加器。
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=0.7\textwidth]{figs/EM-dadda.pdf}
+    \includegraphics[width=0.55\textwidth]{figs/EM-dadda.pdf}
     \caption{利用达达树加法器对$8 \times 8$无符号数乘法部分积进行累加的示意图}
     \label{EM:Fig:dadda}
 \end{figure}
@@ -993,13 +993,6 @@ LUT通常由多路选择器MUX和SRAM构成，其大小可根据输入个数的�
     \label{LS:flow}
 \end{figure}
 
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.6\linewidth]{./figs/LS-two_AIG.png}
-    \caption{函数$x_2 (x_1 + x_3)$的两种不同的AIG实现}
-    \label{LS:two_AIG}
-\end{figure}
-
 
 图\ref{LS:flow}展示了传统逻辑综合的流程图，首先将用户设计的寄存器传输级电路读入并解析，然后进行一系列工艺无关的逻辑优化操作，最后进行工艺相关的映射，生成门级网表。在现代EDA工具中，解析后电路中的组合逻辑部分通常由一个有向无环图进行表示，被称为布尔网络\cite{FPGA:CLB_Anderson}，网络中的节点代表逻辑函数，边代表连接关系，逻辑综合进行的一系列优化及映射操作都基于该网络实现。
 在一个布尔网络中\cite{LS:exact_rewriting,FPGA:Jason_Cong_1993,LS:Verification_after_synthesis}，一个节点的扇入（Fanin）和扇出（Fanout）分别指该节点的输入节点和输出节点；
@@ -1020,6 +1013,12 @@ LUT通常由多路选择器MUX和SRAM构成，其大小可根据输入个数的�
 
 AIG（And-Inverter Graph）是目前一种被广泛用来对逻辑函数进行表示和优化的有向无环图\cite{LS:AIG}，在AIG中，节点分为主要输入节点、主要输出节点和2输入的与门节点三种类型，边包括取反和不取反两种情况，主要输入节点没有输入边，主要输出节点可能有输出边。一个逻辑函数可由不同结构的AIG表示，图\ref{LS:two_AIG}展示了函数$x_2 (x_1 + x_3)$两种不同的AIG实现。基于AIG，由Berkeley大学研发的的逻辑综合与验证工具ABC\cite{LS:ABC}在学术界和工业界获得了广泛的关注和赞誉。ABC可以对AIG进行逻辑优化和工艺映射，逻辑优化的目标是最小化AIG的规模和深度，映射目标是最小化LUT或ASIC电路的面积和延迟。
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.6\linewidth]{./figs/LS-two_AIG.png}
+    \caption{函数$x_2 (x_1 + x_3)$的两种不同的AIG实现}
+    \label{LS:two_AIG}
+\end{figure}
 
 % 研究表明\cite{LS:structural_bias}，AIG的映射结果会受到结构偏差（Structural bias）问题的影响，具体来说，同一个AIG进行不同的变换后会有不同的映射结果，且质量差别较大，这是由于AIG结构的不同导致映射器无法发现更优的解。图\ref{LS:structural_bias}展示了结构偏差问题的存在对LUT映射质量产生影响的一个示例，
 
