@@ -1,10 +1,10 @@
 # 博士论文
 
-中文标题：高效能近似乘法器设计及综合研究
+master分支：初次盲审被毙的版本
 
-英文标题：Highly-Efficient Approximate Multiplier Design and Synthesis
+reviewerC分支：修改后通过的版本
 
-master分支：开源， reviewerC分支：盲审及终稿。
+每个分支都有 Anonymous、non-Anonymous、Open 三个编译选项，其中 Open 的写法最随意，包含写绪论时搜索到的大量 url 链接，若包含这些链接，盲审专家可能会不高兴，盲审专家一不高兴，那我肯定更不高兴。因此额外设置了 Anonymous 和 non-Anonymous 两个选项，用来提交到学校系统用。
 
 ## 明审
 
