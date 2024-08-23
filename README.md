@@ -1,8 +1,8 @@
 # 博士论文
 
-中文标题：高能效近似乘法器设计及综合研究
+中文标题：高效能近似乘法器设计及综合研究
 
-英文标题：High-Efficient Approximate Multiplier Design and Synthesis
+英文标题：Highly-Efficient Approximate Multiplier Design and Synthesis
 
 master分支：开源， reviewerC分支：盲审及终稿。
 
