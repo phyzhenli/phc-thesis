@@ -119,7 +119,7 @@ BOiLS和DRiLLS的结果是在没有划分的情况下直接对整个组合逻辑
 
 \subsection{基于不同近似乘法器的DNN硬件加速器研究}
 
-将提出的基于MFFC自适应超图划分的端到端强化学习逻辑优化框架与近似乘法器库结合，针对DNN硬件加速器，本文首先对图\ref{AC:AM:Adapt:Fig:LeNet_PDA_accuracy}中共68个XWYF近似乘法器利用DC在7nm工艺库\cite{ASAP7_github}上基于2GHz的时钟频率约束进行综合以获取PDA，找到位于帕累拖前沿的乘法器；之后对基于不同乘法器的68个卷积操作加速单元SC\cite{Accelerator:SC}利用提出的逻辑优化框架进行优化，获取ADP并比较结果。
+将提出的基于MFFC自适应超图划分的端到端强化学习逻辑优化框架与近似乘法器库结合，针对DNN硬件加速器，本文首先对图\ref{AC:AM:Adapt:Fig:LeNet_PDA_accuracy}中共68个XWYF近似乘法器利用DC在7nm工艺库\cite{ASAP7_github}上基于2GHz的时钟频率约束进行综合以获取PDA，找到位于帕累托前沿的乘法器；之后对基于不同乘法器的68个卷积操作加速单元SC\cite{Accelerator:SC}利用提出的逻辑优化框架进行优化，获取ADP并比较结果。
 
 
 \subsection{实验结果}
@@ -144,8 +144,8 @@ BOiLS和DRiLLS的结果是在没有划分的情况下直接对整个组合逻辑
 \label{AC:ALS:Fig:SC_LeNet_XWYF}
 \end{figure}
 
-图\ref{AC:ALS:Fig:SC_LeNet_XWYF}展示了68个XWYF乘法器的评估结果以及基于XWYF实现的68个卷积加速器SC\cite{Accelerator:SC}的评估结果，作为对比，基于DesignWare库\cite{IP:DesignWare}实现的精确乘法器DesignW也被纳入比较。图\ref{AC:ALS:Fig:LeNet_XWYF}中共有3个乘法器位于帕累拖前沿，以黄色三角形表示，对应的SC实现在图\ref{AC:ALS:Fig:SC}中也以黄色三角形表示。一个有意思的现象是，虽然DesignW的单独评估结果显示其PDA较高，但基于DesignW实现的SC模块的硬件开销却优于相当一部分的XWYF乘法器，这说明了近似乘法器库在使用时不能简单地根据单独的硬件成本直接选择，而是应该进行多次尝试后决定。
-图\ref{AC:ALS:Fig:SC}表明，基于3个帕累拖最优的乘法器的SC实现仍然位于帕累拖前沿，因此当给定一个近似乘法器库进行综合时，可对库中位于帕累拖前沿的乘法器进行一定次数的随机搜索，综合比较后选择最好的那个进行实现。
+图\ref{AC:ALS:Fig:SC_LeNet_XWYF}展示了68个XWYF乘法器的评估结果以及基于XWYF实现的68个卷积加速器SC\cite{Accelerator:SC}的评估结果，作为对比，基于DesignWare库\cite{IP:DesignWare}实现的精确乘法器DesignW也被纳入比较。图\ref{AC:ALS:Fig:LeNet_XWYF}中共有3个乘法器位于帕累托前沿，以黄色三角形表示，对应的SC实现在图\ref{AC:ALS:Fig:SC}中也以黄色三角形表示。一个有意思的现象是，虽然DesignW的单独评估结果显示其PDA较高，但基于DesignW实现的SC模块的硬件开销却优于相当一部分的XWYF乘法器，这说明了近似乘法器库在使用时不能简单地根据单独的硬件成本直接选择，而是应该进行多次尝试后决定。
+图\ref{AC:ALS:Fig:SC}表明，基于3个帕累托最优的乘法器的SC实现仍然位于帕累托前沿，因此当给定一个近似乘法器库进行综合时，可对库中位于帕累托前沿的乘法器进行一定次数的随机搜索，综合比较后选择最好的那个进行实现。
 
 \section{本章小结}
 

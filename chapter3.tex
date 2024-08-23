@@ -77,7 +77,7 @@
 
 \subsection{输入极性的影响}
 
-为了展示输入极性对近似乘法器精度的影响，对基于CGP方法开发的包含500个帕累拖最优（Pareto optimality）的近似乘法器库Evoapprox8b\cite{AC:AM:CGP_Evoapprox8b}进行了研究，过程如下：
+为了展示输入极性对近似乘法器精度的影响，对基于CGP方法开发的包含500个帕累托最优（Pareto optimality）的近似乘法器库Evoapprox8b\cite{AC:AM:CGP_Evoapprox8b}进行了研究，过程如下：
 
 假设近似乘法器的输入分别是$x$和$y$，对于DNN或滤波器（Filter）应用，定义$P=0$代表$x$是输入、$y$是权重，$P=1$代表$x$是权重、$y$是输入。基于LeNet网络和MNIST数据集\cite{DNN:LeNet_MNIST}，对Evoapprox8b\cite{AC:AM:CGP_Evoapprox8b}中全部的500个近似乘法器进行$P=0$和$P=1$的精度评估，结果如图\ref{AC:AM:Adapt:Fig:Evo8_accuracy_P}所示。
 \begin{figure}[!htb]
@@ -830,7 +830,7 @@ DRUM(7)的功耗和延迟都略高于DesignW，这是因为需要检查的比特
 为了验证方法在大位宽乘法器下的有效性，基于平均值$\mu$为0、标准差$\sigma$为$2^{30}$的正态分布（Normal distribution）随机生成了$2^{20}$对大于0的32比特输入数据（设为$x$和$y$），其直方图如图\ref{AC:AM:Adapt:Fig:half-normal_histograms}所示。
 假设某一应用的乘法器也基于32比特的无符号数实现，且输入数据只从生成的$2^{20}$种情况中选择，精度由该$2^{20}$种情况下的平均绝对误差MAE（即平均误差距离MED，见式\eqref{AC:Arith:MED}）决定。
 考虑到$x$和$y$分布相同，所以无需考虑极性，且输入情况可以遍历。假设$R=0.15$，由式\eqref{AC:AM:Adapt:Eq:l_approx}得$l$取$10$，根据算法\ref{AC:AM:Adapt:Alg:lambda}确定$\lambda$为500后，求解\eqref{AC:AM:Adapt:Eq:Obj}得到近似乘法器。
-在1.5GHz的时钟频率约束下与EvoLite\cite{AC:AM:CGP_EvoLite}中的32比特无符号乘法器（简称为Evo32）进行MAE和PDA的对比，结果如图\ref{AC:AM:Adapt:Fig:half-norm_32x32_PDA_MAE}所示，可以看到生成的乘法器与Evo32和DesignW一起组成了帕累拖前沿（Pareto front），证明了方法对大位宽乘法器的有效性。
+在1.5GHz的时钟频率约束下与EvoLite\cite{AC:AM:CGP_EvoLite}中的32比特无符号乘法器（简称为Evo32）进行MAE和PDA的对比，结果如图\ref{AC:AM:Adapt:Fig:half-norm_32x32_PDA_MAE}所示，可以看到生成的乘法器与Evo32和DesignW一起组成了帕累托前沿（Pareto front），证明了方法对大位宽乘法器的有效性。
 
 \section{本章小结}
 
@@ -839,4 +839,4 @@ DRUM(7)的功耗和延迟都略高于DesignW，这是因为需要检查的比特
 基于均匀分布下的8比特无符号乘法器的实验结果表明，本文的方法生成的近似乘法器大幅优于已有的工作。
 对LeNet、AlexNet和VGG16三种不同规模的基于8比特无符号数量化的DNN的实验结果表明，与最先进的近似乘法器相比，本文生成的乘法器在精度损失不超过0.01\%的情况下实现了26.4\%-47.6\%的PDA提升。同时，AlexNet和VGG16的实验结果证明了在设计非对称近似乘法器时考虑输入极性的重要性，也验证了基于提出的方法利用可迁移性为一类具有相似数据分布的应用生成一批近似乘法器的可行性。
 对补码有符号乘法器的有效性在基于16位自适应LMS-FIR滤波器应用的实验中得到了证明，与国际前沿工作相比，生成的乘法器在PSNR损失可以忽略不计的情况下实现了PDA高达27.1\%的提升。
-最后，基于32比特半正态分布的无符号数乘法器的实验结果表明，生成的乘法器与别的乘法器一起组成了帕累拖前沿，表明方法对大位宽乘法器同样有效。
+最后，基于32比特半正态分布的无符号数乘法器的实验结果表明，生成的乘法器与别的乘法器一起组成了帕累托前沿，表明方法对大位宽乘法器同样有效。

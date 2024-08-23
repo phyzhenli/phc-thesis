@@ -102,7 +102,7 @@
 \subsection{目标函数}
 
 贝叶斯优化需要一个目标函数（假设是$cost$）对每个点的好坏进行评估，$cost$越小的解质量越高，$cost$的计算方法决定了贝叶斯优化的搜索方向。例如，如果将$cost$设置为平均绝对误差MAE（即平均误差距离MED，见式\eqref{AC:Arith:MED}）,那么贝叶斯优化将会忽略硬件成本开销，只着重于寻找MAE最小的乘法器，这会导致生成的乘法器性能很差。然而，近似乘法器的质量是由硬件成本和误差共同决定的，因此需要一个合适的$cost$定义方式。
-乘法器的硬件成本可以由功耗延迟面积积PDA描述，而误差可以由MAE和均方误差MSE的乘积（Product of MAE and MSE, MM）表示，一个简单的同时考虑硬件开销和误差的$cost$计算方法是将其设置为PDA和MM的乘积。然而，根据分析，近似乘法器的MAE和MSE会随着PDA的降低指数级增长，这意味着若将$cost$设置为PDA$ \times $MM，则$cost$将由MM主导。为了能够使目标函数真实地反映出不同乘法器的质量，让具有较小$cost$的乘法器位于帕累拖前沿，将$cost$设置为PDAE，其定义为：
+乘法器的硬件成本可以由功耗延迟面积积PDA描述，而误差可以由MAE和均方误差MSE的乘积（Product of MAE and MSE, MM）表示，一个简单的同时考虑硬件开销和误差的$cost$计算方法是将其设置为PDA和MM的乘积。然而，根据分析，近似乘法器的MAE和MSE会随着PDA的降低指数级增长，这意味着若将$cost$设置为PDA$ \times $MM，则$cost$将由MM主导。为了能够使目标函数真实地反映出不同乘法器的质量，让具有较小$cost$的乘法器位于帕累托前沿，将$cost$设置为PDAE，其定义为：
 \begin{align}
     \text{PDAE} & = \text{PDA} \times \log_2 (\text{MM}^{\prime}) \label{AC:AM:FPGA:AMG:Eq:PDAE}  \\
     \text{MM}^{\prime} & = \text{MAE} \times \text{MSE} + 1 \label{AC:AM:FPGA:AMG:Eq:MM_prime}
@@ -136,12 +136,12 @@
     \label{AC:AM:FPGA:AMG:Fig:PDA_MM_prime}
 \end{figure}
 
-图\ref{AC:AM:FPGA:AMG:Fig:PDA_MM_prime}展示了不同乘法器的PDA和MM$\prime$散点图，可以看到基于本文生成的乘法器与别的乘法器一起组成了帕累拖前沿。SMApproxLib和TCAD22中有两个乘法器是精确乘法器，硬件开销比基于Xilinx LogiCORE IP实现的乘法器（图中的Xilinx Default IP）更低，具体来讲，这两个乘法器消耗的LUT资源比Xilinx Default IP少20\%左右，关键路径延迟增加了约5\%，这与文献\cite{AC:AM:FPGA:SMApproxLib}和文献\cite{AC:AM:FPGA:TCAD22}中描述地一致。
+图\ref{AC:AM:FPGA:AMG:Fig:PDA_MM_prime}展示了不同乘法器的PDA和MM$\prime$散点图，可以看到基于本文生成的乘法器与别的乘法器一起组成了帕累托前沿。SMApproxLib和TCAD22中有两个乘法器是精确乘法器，硬件开销比基于Xilinx LogiCORE IP实现的乘法器（图中的Xilinx Default IP）更低，具体来讲，这两个乘法器消耗的LUT资源比Xilinx Default IP少20\%左右，关键路径延迟增加了约5\%，这与文献\cite{AC:AM:FPGA:SMApproxLib}和文献\cite{AC:AM:FPGA:TCAD22}中描述地一致。
 SMApproxLib中有三个近似乘法器以较小的误差（MM$^\prime\in[10^3,10^4]$）实现了较高的硬件性能。
 同时，从图中可以看出，FPT22、CaCc、SMApproxLib和TCAD22这些基于LUT编码方法设计的近似乘法器之间误差相差较大，无法根据需求进行灵活地调整，应用场景较窄，尤其是SMApproxLib。
 尽管EvoApprovx8b\cite{AC:AM:CGP_Evoapprox8b}是面向ASIC的，但基于自动化方法生成的近似乘法器之间具有较小的质量差异，能够为具有不同误差容忍度的应用程序提供更多选择。
 从图中可以看出，当MM$^\prime \in [10^8,10^{11}]$时，EvoApproveLite\cite{AC:AM:CGP_EvoLite}和ApprovxFPGA\cite{AC:AM:FPGA:ApproxFPGAs}中的乘法器比其他乘法器的质量更高，但这些乘法器可能并不实用，因为它们要求应用具有较大的误差容忍度。
-另外，图\ref{AC:AM:FPGA:AMG:Fig:PDA_MM_prime}中参与比较的近似乘法器是是从所有生成的乘法器中基于PDAE值选出的，可以看到具有小PDAE值的近似乘法器都处于帕累拖前沿，这证明了将目标函数$cost$定义为PDAE的合理性，即PDAE有效地指导了贝叶斯优化的搜索方向。
+另外，图\ref{AC:AM:FPGA:AMG:Fig:PDA_MM_prime}中参与比较的近似乘法器是是从所有生成的乘法器中基于PDAE值选出的，可以看到具有小PDAE值的近似乘法器都处于帕累托前沿，这证明了将目标函数$cost$定义为PDAE的合理性，即PDAE有效地指导了贝叶斯优化的搜索方向。
 
 
 为了更直观地比较不同近似乘法器的质量，将不同乘法器按照MM$^\prime$分组，并挑选出每组中最佳的PDAE值进行对比。
@@ -151,7 +151,7 @@ SMApproxLib中有三个近似乘法器以较小的误差（MM$^\prime\in[10^3,10
 
 \section{本章小结}
 
-前期工作证明了基于数据分布和输入极性的ASIC近似乘法器能够较大程度地提高ASIC电路能效，但是ASIC近似乘法器在FPGA上仍然存在硬件收益不匹配这一问题。因此本章针对FPGA提出了一种自动化近似乘法器设计方法，该方法假设乘法器的部分积在累加前存在一次由半加器阵列进行的压缩操作，利用贝叶斯算法基于提出的4种半加器简化方法对半加器阵列进行优化，保留压缩后累加过程中部分积的粗粒度加法，以使FPGA的EDA工具对其高效地识别并映射到进位链。与国际前沿工作中的1167个近似乘法器相比，基于本文的方法生成的乘法器位于帕累拖前沿，综合指标比已有的乘法器平均提高了28.70\%-38.47\%。尽管实验是基于FPGA和均匀分布进行的，但该方法可以被拓展到ASIC领域和非均匀分布。
+前期工作证明了基于数据分布和输入极性的ASIC近似乘法器能够较大程度地提高ASIC电路能效，但是ASIC近似乘法器在FPGA上仍然存在硬件收益不匹配这一问题。因此本章针对FPGA提出了一种自动化近似乘法器设计方法，该方法假设乘法器的部分积在累加前存在一次由半加器阵列进行的压缩操作，利用贝叶斯算法基于提出的4种半加器简化方法对半加器阵列进行优化，保留压缩后累加过程中部分积的粗粒度加法，以使FPGA的EDA工具对其高效地识别并映射到进位链。与国际前沿工作中的1167个近似乘法器相比，基于本文的方法生成的乘法器位于帕累托前沿，综合指标比已有的乘法器平均提高了28.70\%-38.47\%。尽管实验是基于FPGA和均匀分布进行的，但该方法可以被拓展到ASIC领域和非均匀分布。
 
 \begin{table*}[!htbp]
     \renewcommand{\arraystretch}{1.4}
